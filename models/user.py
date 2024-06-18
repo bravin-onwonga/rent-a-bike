@@ -3,20 +3,25 @@
 
 from models.base_model import BaseModel
 
-class User(BaseModel):
-    """Class for our lessee"""
+from sqlalchemy import Boolean, Column, String, DateTime
+from sqlalchemy.orm import relationship
 
-    firstname = ""
-    lastname = ""
-    email = ""
-    id_number = ""
-    phone_number = ""
-    profile_pic = ""
-    date_of_birth = ""
-    password = ""
-    street_address = ""
-    zip_code = ""
-    county = ""
+class User(BaseModel):
+    """Class for our users"""
+
+    __tablename__ = 'users'
+
+    firstname = Column(String(128), nullable=False)
+    middlename = Column(String(128), nullable=True)
+    lastname = Column(String(128), nullable=False)
+    email = Column(String(128), nullable=False)
+    id_number = Column(String(60), nullable=False)
+    phone_number = Column(String(60), nullable=True)
+    profile_pic = Column(String(60), nullable=False)
+    date_of_birth = Column(DateTime, nullable=False)
+    password = Column(String(128), nullable=False)
+    street_address = Column(String(128), nullable=True)
+    county = Column(String(128), nullable=True)
     bikes_rented = []
     reviews = []
 

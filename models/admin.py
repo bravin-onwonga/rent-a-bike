@@ -2,6 +2,7 @@
 """Contains the admin class"""
 
 from models.base_model import BaseModel
+from sqlalchemy import Boolean, Column, String, DateTime
 
 
 class Admin(BaseModel):
@@ -12,9 +13,12 @@ class Admin(BaseModel):
         email - admins email
         password - admins password
     """
-    name = ""
-    email = ""
-    password = ""
+    __tablename__ = 'admin'
+
+    name = Column(String(128), nullable=False)
+    email = Column(String(128), nullable=False)
+    password = Column(String(128), nullable=False)
+
 
     def __init__(self, *args, **kwargs):
         """Instantiates our object"""

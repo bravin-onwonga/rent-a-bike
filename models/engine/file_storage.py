@@ -14,5 +14,4 @@ class FileStorage:
     __object = {}
     __filepath = "file.json"
 
-    def __init__(self):
-        """Instantiates my file storage"""
+    
