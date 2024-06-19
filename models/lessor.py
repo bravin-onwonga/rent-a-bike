@@ -6,10 +6,10 @@ from sqlalchemy import Boolean, Column, String, DateTime
 from sqlalchemy.orm import relationship
 
 
-class Lesser(BaseModel):
-    """Lesser class"""
+class Lessor(BaseModel):
+    """Lessor class"""
 
-    __tablename__ = 'lessers'
+    __tablename__ = 'lessors'
 
     name = Column(String(128), nullable=False)
     email = Column(String(128), nullable=False)
@@ -17,5 +17,5 @@ class Lesser(BaseModel):
     bike = relationship('Bike', backref='lessor', cascade="all, delete-orphan")
 
     def __init__(self, *args, **kwargs):
-        """Instantiates a Lesser object"""
+        """Instantiates a Lessor object"""
         super().__init__(*args, **kwargs)

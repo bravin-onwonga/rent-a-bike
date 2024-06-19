@@ -22,9 +22,11 @@ class User(BaseModel):
     password = Column(String(128), nullable=False)
     street_address = Column(String(128), nullable=True)
     county = Column(String(128), nullable=True)
-    bikes_rented = []
     reviews = []
 
     def __init__(self, *args, **kwargs):
         """Instantiates a class object"""
         super().__init__(*args, **kwargs)
+
+
+
