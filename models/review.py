@@ -1,12 +1,13 @@
 #!/usr/bin/python3
 """Contains the Review Class"""
 
-from models.base_model import BaseModel
+from models.base_model import BaseModel, Base
 
 from sqlalchemy import ForeignKey, Column, String, DateTime
 from sqlalchemy.orm import relationship
 
-class Review(BaseModel):
+
+class Review(BaseModel, Base):
     """Review for each object"""
     __tablename__ = 'reviews'
 

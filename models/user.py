@@ -1,12 +1,14 @@
 #!/usr/bin/python3
 """Contains the user class"""
 
-from models.base_model import BaseModel
+from models.base_model import BaseModel, Base
+from models.review import Review
 
 from sqlalchemy import Boolean, Column, String, DateTime
 from sqlalchemy.orm import relationship
 
-class User(BaseModel):
+
+class User(BaseModel, Base):
     """Class for our users"""
 
     __tablename__ = 'users'
@@ -17,16 +19,14 @@ class User(BaseModel):
     email = Column(String(128), nullable=False)
     id_number = Column(String(60), nullable=False)
     phone_number = Column(String(60), nullable=True)
-    profile_pic = Column(String(60), nullable=False)
+    profile_pic = Column(String(60), nullable=True)
     date_of_birth = Column(DateTime, nullable=False)
     password = Column(String(128), nullable=False)
     street_address = Column(String(128), nullable=True)
     county = Column(String(128), nullable=True)
-    reviews = []
+    reviews = relationship('Review', backref='user',
+                           cascade="all, delete-orphan")
 
     def __init__(self, *args, **kwargs):
         """Instantiates a class object"""
         super().__init__(*args, **kwargs)
-
-
-

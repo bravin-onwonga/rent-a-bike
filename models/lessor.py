@@ -1,12 +1,13 @@
 #!/usr/bin/python3
 """Contains the lessor class"""
 
-from models.base_model import BaseModel
+from models.base_model import BaseModel, Base
+from models.bike import Bike
 from sqlalchemy import Boolean, Column, String, DateTime
 from sqlalchemy.orm import relationship
 
 
-class Lessor(BaseModel):
+class Lessor(BaseModel, Base):
     """Lessor class"""
 
     __tablename__ = 'lessors'

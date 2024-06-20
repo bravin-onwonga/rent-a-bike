@@ -5,10 +5,15 @@ import os
 from sqlalchemy import MetaData, create_engine
 from models.user import User
 from models.admin import Admin
-from models.lessor import Lesser
+from models.lessor import Lessor
 from models.bike import Bike
+from dotenv import load_dotenv
+from models.base_model import BaseModel, Base
 
-cls_lst = [User, Admin, Lesser, Bike]
+load_dotenv()
+
+cls_lst = [User, Admin, Lessor, Bike]
+
 
 class DBStorage:
     """My database storage class"""
@@ -17,60 +22,73 @@ class DBStorage:
 
     def __init__(self):
         """Instantiates the class object"""
-        username = ""
-        dbname = ""
-        host = ""
-        passwd = ""
+        username = os.getenv("DB_USER")
+        dbname = os.getenv("DB_NAME")
+        host = os.getenv("DB_HOST")
+        passwd = os.getenv("DB_PASSWD")
 
         self.__engine = create_engine(
             'mysql+mysqldb://{}:{}@{}/{}'.format(
                 username,
                 passwd,
                 host,
-                dbname),
-                pool_pre_ping=True)
+                dbname), pool_pre_ping=True)
 
-        def all(self, cls):
-            """Lists all object of a class or
-            all object if no class is given"""
+    def all(self, cls):
+        """Lists all object of a class or
+        all object if no class is given"""
 
-            my_dict = {}
-            if (cls):
+        my_dict = {}
+        if (cls):
+            objs = self.__session.query(cls).all()
+
+            for obj in objs:
+                key = cls.__name__ + "+" + obj.id
+                value = obj
+                my_dict.update({key: value})
+        else:
+            for cls in cls_lst:
                 objs = self.__session.query(cls).all()
 
                 for obj in objs:
                     key = cls.__name__ + "+" + obj.id
                     value = obj
                     my_dict.update({key: value})
-            else:
-                for cls in cls_list:
-                    objs = self.__session.query(cls).all()
 
-                    for obj in objs:
-                        key = cls.__name__ + "+" + obj.id
-                        value = obj
-                        my_dict.update({key: value})
+        return my_dict
 
-            return my_dict
+    def new(self, obj=None):
+        """Adds a new object to the database"""
+        if obj:
+            self.__session.add(obj)
 
+    def save(self):
+        """Commits the current sessio"""
+        self.__session.commit()
 
-        def new(self, obj=None):
-            if obj:
-                self.__session.add(obj)
+    def delete(self, obj=None):
+        """Deletes an object from the database"""
+        if obj:
+            obj_cls = obj.__class__
+            key = obj_cls + "." + obj.id
+            obj_to_del = self.__session.query(obj_cls).filter(
+                            obj_cls.id == key)
 
+            if obj_to_del:
+                self.__session.delete(obj_to_del)
 
-        def save(self):
-            self.__session.commit()
+    def reload(self):
+        """Reloads from the database"""
+        from sqlalchemy.orm import sessionmaker, scoped_session
 
-        def delete(self, obj=None):
-            if obj:
-                obj_cls = obj.__class__
-                key = obj_cls + "." + obj.id
-                obj_to_del = self.__session.query(obj_cls).filter(obj_cls.id == key)
+        Base.metadata.create_all(self.__engine)
 
-                if obj_to_del:
-                    self.__session.delete(obj_to_del)
+        session_factory = sessionmaker(
+            bind=self.__engine, expire_on_commit=False)
+        Session = scoped_session(session_factory)
+        self.__session = Session()
 
-        def close(self):
-            self.__session.close()
-            self.reload()
+    def close(self):
+        """Removes the current session"""
+        self.__session.close()
+        self.reload()
