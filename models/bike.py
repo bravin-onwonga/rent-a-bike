@@ -17,9 +17,9 @@ class Bike(BaseModel, Base):
     __tablename__ = 'bikes'
 
     model = Column(String(60), nullable=False)
-    bike_type = Column(String(128), nullable=False)
+    category = Column(String(128), nullable=False)
     available = Column(Boolean, default=True)
-    user_id = Column(String(60), nullable=False)
+    user_id = Column(String(60), nullable=True)
     rent_date = Column(DateTime, nullable=True)
     return_date = Column(DateTime, nullable=True)
     lessor_id = Column(String(60), ForeignKey('lessors.id'), nullable=False)
@@ -34,7 +34,3 @@ class Bike(BaseModel, Base):
         for key, value in kwargs.items():
             setattr(key, value)
         self.updated_at = datetime.utcnow()
-
-    def return_bike(self, user_id):
-        """Method to allow """
-        pass

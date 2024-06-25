@@ -20,7 +20,6 @@ class User(BaseModel, Base):
     id_number = Column(String(60), nullable=False)
     phone_number = Column(String(60), nullable=True)
     profile_pic = Column(String(60), nullable=True)
-    date_of_birth = Column(DateTime, nullable=False)
     password = Column(String(128), nullable=False)
     street_address = Column(String(128), nullable=True)
     county = Column(String(128), nullable=True)
