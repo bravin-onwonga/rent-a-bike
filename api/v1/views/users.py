@@ -10,18 +10,17 @@ from models.bike import Bike
 from models.user import User
 
 
-@app_views.route('/users', strict_slaches=False, methods=['GET'])
+@app_views.route('/users', strict_slashes=False, methods=['GET'])
 def get_users():
     """Gets all users from DB"""
     users_lst = []
     users = storage.all(User)
 
     for user in users.values():
-        user_dct = user.to_dict()
-        users_lst.append(user_dct)
+        users_lst.append(user)
     return jsonify(users_lst), 200
 
-@app_views('/users/<user_id>', strict_slashes=False, methods=['GET'])
+@app_views.route('/users/<user_id>', strict_slashes=False, methods=['GET'])
 def get_user(user_id):
     """Gets one user using the user's id"""
     user = storage.get(User, user_id)
@@ -55,7 +54,7 @@ def delete_user(user_id):
     else:
         abort(404)
 
-@app_views.route('/users', strict_slashes=False, method=['POST'])
+@app_views.route('/users', strict_slashes=False, methods=['POST'])
 def create_user():
     user_info = request.get_json()
 

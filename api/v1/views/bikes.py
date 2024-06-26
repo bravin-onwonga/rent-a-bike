@@ -54,7 +54,7 @@ def delete_bike(bike_id):
     else:
         abort(404)
 
-@app_views.route('/bikes', strict_slashes=False, method=['POST'])
+@app_views.route('/bikes', strict_slashes=False, methods=['POST'])
 def create_Bike():
     bike_info = request.get_json()
 

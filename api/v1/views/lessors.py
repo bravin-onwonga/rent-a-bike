@@ -29,7 +29,7 @@ def get_Lessor(lessor_id):
         abort(400, "Lessor not found")
 
 
-@app_views.route('/lessors', strict_slashes=False, method=['POST'])
+@app_views.route('/lessors', strict_slashes=False, methods=['POST'])
 def create_lessor():
     lessor_info = request.get_json()
 

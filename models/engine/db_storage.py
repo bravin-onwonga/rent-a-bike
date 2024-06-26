@@ -43,19 +43,38 @@ class DBStorage:
             objs = self.__session.query(cls).all()
 
             for obj in objs:
-                key = cls.__name__ + "+" + obj.id
-                value = obj
+                key = cls.__name__ + "." + obj.id
+                value = obj.to_dict()
+                if value.get('_sa_instance_state'):
+                    del value['_sa_instance_state']
+                if value.get('__class__'):
+                        del value['__class__']
                 my_dict.update({key: value})
         else:
             for cls in cls_lst:
                 objs = self.__session.query(cls).all()
 
                 for obj in objs:
-                    key = cls.__name__ + "+" + obj.id
-                    value = obj
+                    key = cls.__name__ + "." + obj.id
+                    value = obj.to_dict()
+                    if value.get('_sa_instance_state'):
+                        del value['_sa_instance_state']
+                    if value.get('__class__'):
+                        del value['__class__']
                     my_dict.update({key: value})
 
         return my_dict
+
+    def get(self, cls, obj_id):
+        """Returns an object using the id provided"""
+        if cls and not obj_id:
+            return self.all(cls)
+        if (cls and obj_id):
+            objs = self.all(cls)
+            for obj in objs.values():
+                if obj.id == obj_id:
+                    return (obj.to_dict())
+
 
     def new(self, obj=None):
         """Adds a new object to the database"""
