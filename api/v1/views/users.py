@@ -6,6 +6,7 @@ Module to handle restful api actions for the user
 from flask import abort, jsonify, request
 from api.v1.views import app_views
 from models import storage
+from models.bike import Bike
 from models.user import User
 
 
@@ -29,6 +30,18 @@ def get_user(user_id):
         return jsonify(user.to_dict()), 200
     else:
         abort(404)
+
+@app_views.route('/users/<user_id>', strict_slashes=False, methods=['GET'])
+def get_user_bikes(user_id):
+    """Gets one bike instance by its id"""
+    bikes_lst = []
+
+    bikes = storage.all(Bike)
+
+    for bike in bikes.values():
+        if bike.user_id == user_id:
+            bikes_lst.append(bike.to_dict())
+    return jsonify(bikes_lst), 200
 
 @app_views.route('/users/<user_id>', strict_slashes=False, methods=['DELETE'])
 def delete_user(user_id):

@@ -18,7 +18,7 @@ class Bike(BaseModel, Base):
 
     model = Column(String(60), nullable=False)
     category = Column(String(128), nullable=False)
-    available = Column(Boolean, default=True)
+    available = Column(Boolean, nullable=False, default=True)
     user_id = Column(String(60), nullable=True)
     rent_date = Column(DateTime, nullable=True)
     return_date = Column(DateTime, nullable=True)

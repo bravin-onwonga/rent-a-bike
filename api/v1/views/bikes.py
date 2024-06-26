@@ -18,6 +18,20 @@ def get_bikes():
 
     return jsonify(bikes_lst), 200
 
+
+@app_views.route('/bikes', strict_slashes=False, methods=['GET'])
+def get_available_bikes():
+    """Get available bikes"""
+    bikes_lst = []
+
+    bikes = storage.all(Bike)
+
+    for bike in bikes.values():
+        if bike.available:
+            bikes_lst.append(bike.to_dict())
+
+    return jsonify(bikes_lst), 200
+
 @app_views.route('/bikes/<bike_id>', strict_slashes=False, methods=['GET'])
 def get_bike(bike_id):
     """Gets one bike instance by its id"""
@@ -28,6 +42,17 @@ def get_bike(bike_id):
     else:
         abort(400, "Bike not found")
 
+@app_views.route('/bikes/<bike_id>', strict_slashes=False, methods=['DELETE'])
+def delete_bike(bike_id):
+    """Deletes a bike using its id"""
+    bike = storage.get(Bike, bike_id)
+
+    if bike:
+        storage.delete(bike)
+        storage.save()
+        return jsonify({}), 202
+    else:
+        abort(404)
 
 @app_views.route('/bikes', strict_slashes=False, method=['POST'])
 def create_Bike():
