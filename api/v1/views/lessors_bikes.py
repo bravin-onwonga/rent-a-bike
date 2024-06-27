@@ -20,7 +20,7 @@ def all_lessor_bikes(lessor_id):
         bikes = storage.all(Bike)
 
         for bike in bikes.values():
-            bike_dict = bike.to_dict()
+            bike_dict = bike
             if bike_dict.get('lessor_id') == lessor_id:
                 bikes_lst.append(bike_dict)
 

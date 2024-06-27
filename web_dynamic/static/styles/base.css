@@ -1,0 +1,14 @@
+.nav-links {
+display: flex;
+flex-direction: row;
+justify-content: center;
+list-style: none;
+gap: 30px;
+}
+
+.nav-links a {
+color: black;}
+
+.footer-div {
+text-align: center;
+}

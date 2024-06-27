@@ -19,10 +19,12 @@ class User(BaseModel, Base):
     email = Column(String(128), nullable=False)
     id_number = Column(String(60), nullable=False)
     phone_number = Column(String(60), nullable=True)
+    id_document = Column(String(60), nullable=True)
     profile_pic = Column(String(60), nullable=True)
     password = Column(String(128), nullable=False)
     street_address = Column(String(128), nullable=True)
     county = Column(String(128), nullable=True)
+    verified = Column(Boolean, nullable=False, default=False)
     reviews = relationship('Review', backref='user',
                            cascade="all, delete-orphan")
 

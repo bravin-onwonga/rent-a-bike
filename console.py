@@ -63,7 +63,7 @@ class HBNBCommand(cmd.Cmd):
                 elif '.' in value:
                     value = float(value)
                 elif key == "date_of_birth":
-                    date_of_birth = datetime.strptime(value, "%Y-%m-%d").date()
+                    value = datetime.strptime(value, "%Y-%m-%d").date()
                 else:
                     value = int(value)
 
@@ -90,8 +90,8 @@ class HBNBCommand(cmd.Cmd):
             return False
 
         for obj in objs_dct.values():
-            objs_lst.append(obj.to_dict())
-        return (objs_lst)
+            objs_lst.append(obj)
+        print (objs_lst)
 
     @staticmethod
     def _split(line):

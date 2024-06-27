@@ -1,0 +1,49 @@
+.signup-div {
+display: flex;
+flex-direction: column;
+justify-content: center;
+margin: 10px auto;
+width: 450px;
+border: 1px solid #322fff77;
+}
+
+.signup-form {
+display: flex;
+flex-direction: column;
+justify-content: center;
+margin: 30px auto;
+gap: 20px;
+}
+
+.signup-form h1 {
+margin: 0 auto;}
+
+.signup-form div {
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+gap: 10px;}
+
+.signup-form div label {
+display: flex;
+justify-self: flex-start;
+margin-left: 30px;
+}
+
+.signup-form div input {
+display: flex;
+justify-self: flex-end;
+margin-right: 30px;
+align-self: right;
+width: 200px;
+height: 30px;
+border: 1px solid #2c2b2b55;}
+
+.submit-btn {
+color: white;
+background-color: #00611d;
+width: 100px;
+height: 30px;
+align-self: center;
+border: none;
+}

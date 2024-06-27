@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block extra_styles %}
+<link rel="stylesheet" type="text/css"
+  href="{{ url_for('static', filename='styles/services.css', cache_id=cache_id) }}">
+{% endblock %}
+
+{% block content %}
+<div class="services-div">
+  <h1>Services</h1>
+</div>
+{% endblock %}

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../static/styles/base.css?{{ cache_id }}" />
+  {% block extra_styles %}{% endblock %}
+  <title>Rent-a-bike</title>
+</head>
+
+<body>
+  <header>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="/home">Home</a></li>
+        <li><a href="/bikes">Bikes</a></li>
+        <li><a href="/lessors">Lessors</a></li>
+        <li><a href="/services">Services</a></li>
+        <li><a href="/contact">Contact Us</a></li>
+      </ul>
+    </nav>
+    <hr />
+  </header>
+
+  <main>
+    {% block content %}
+    {% endblock %}
+  </main>
+
+  <footer class="footer-div">
+    <hr />
+    <span>Copyright @2024 Rent a Bike</span>
+  </footer>
+
+</body>
+
+</html>

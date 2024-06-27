@@ -70,10 +70,11 @@ class DBStorage:
         if cls and not obj_id:
             return self.all(cls)
         if (cls and obj_id):
-            objs = self.all(cls)
-            for obj in objs.values():
-                if obj.id == obj_id:
-                    return (obj.to_dict())
+            objs = self.all(cls).values()
+            for obj in objs:
+                if obj.get('id') == obj_id:
+                    return (obj)
+        return None
 
 
     def new(self, obj=None):

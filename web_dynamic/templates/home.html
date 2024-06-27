@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block extra_styles %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/home.css', cache_id=cache_id) }}">
+{% endblock %}
+
+{% block content %}
+<div class="home-div">
+  <h1>Home</h1>
+  <div>
+    {% for bike in bikes %}
+    <div>
+      <h1>Mountain</h1>
+    </div>
+    {% endfor %}
+
+  </div>
+</div>
+{% endblock %}

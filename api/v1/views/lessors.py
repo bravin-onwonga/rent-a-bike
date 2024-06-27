@@ -14,7 +14,7 @@ def get_lessors():
     lessors = storage.all(Lessor)
 
     for lessor in lessors.values():
-        lessors_lst.append(lessor.to_dict())
+        lessors_lst.append(lessor)
 
     return jsonify(lessors_lst), 200
 
@@ -24,7 +24,7 @@ def get_Lessor(lessor_id):
     lessor = storage.get(Lessor, lessor_id)
 
     if lessor:
-        return jsonify(lessor.to_dict()), 200
+        return jsonify(lessor), 200
     else:
         abort(400, "Lessor not found")
 
@@ -66,6 +66,6 @@ def update_lessor(lessor_id):
         for key, value in new_info.items():
             setattr(Lessor, key, value)
         storage.save()
-        return jsonify(Lessor.to_dict()), 200
+        return jsonify(Lessor), 200
     else:
         abort(404)

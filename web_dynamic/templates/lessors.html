@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block extra_styles %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/lessors.css', cache_id=cache_id) }}">
+{% endblock %}
+
+{% block content %}
+<div class="lessors-div">
+  <h1>Our Partners</h1>
+</div>
+{% endblock %}

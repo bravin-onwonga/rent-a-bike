@@ -14,12 +14,12 @@ def get_bikes():
     bikes = storage.all(Bike)
 
     for bike in bikes.values():
-        bikes_lst.append(bike.to_dict())
+        bikes_lst.append(bike)
 
     return jsonify(bikes_lst), 200
 
 
-@app_views.route('/bikes', strict_slashes=False, methods=['GET'])
+@app_views.route('/bikes/available', strict_slashes=False, methods=['GET'])
 def get_available_bikes():
     """Get available bikes"""
     bikes_lst = []
@@ -28,7 +28,7 @@ def get_available_bikes():
 
     for bike in bikes.values():
         if bike.available:
-            bikes_lst.append(bike.to_dict())
+            bikes_lst.append(bike)
 
     return jsonify(bikes_lst), 200
 
@@ -38,7 +38,7 @@ def get_bike(bike_id):
     bike = storage.get(Bike, bike_id)
 
     if bike:
-        return jsonify(bike.to_dict()), 200
+        return jsonify(bike), 200
     else:
         abort(400, "Bike not found")
 
@@ -75,8 +75,8 @@ def update_bike(bike_id):
     """Updates the Bike data using his id"""
     new_info = request.get_json()
 
-    if not new_info.get('firstname') or not new_info.get('lastname'):
-        abort(400, "Missing firstname or lastname")
+    """ if not new_info.get('firstname') or not new_info.get('lastname'):
+        abort(400, "Missing firstname or lastname") """
 
     if not(new_info):
         abort(400, "Missing information")
@@ -85,12 +85,11 @@ def update_bike(bike_id):
 
     if bike:
         lst = ['id', 'updated_at', 'created_at']
-        for key in lst:
-            if new_info.get(key):
-                del new_info[key]
+
         for key, value in new_info.items():
-            setattr(bike, key, value)
+            if key not in lst:
+                bike[key] = value
         storage.save()
-        return jsonify(bike.to_dict()), 200
+        return jsonify(bike), 200
     else:
         abort(404)

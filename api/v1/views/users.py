@@ -26,7 +26,7 @@ def get_user(user_id):
     user = storage.get(User, user_id)
 
     if user:
-        return jsonify(user.to_dict()), 200
+        return jsonify(user), 200
     else:
         abort(404)
 
@@ -39,7 +39,7 @@ def get_user_bikes(user_id):
 
     for bike in bikes.values():
         if bike.user_id == user_id:
-            bikes_lst.append(bike.to_dict())
+            bikes_lst.append(bike)
     return jsonify(bikes_lst), 200
 
 @app_views.route('/users/<user_id>', strict_slashes=False, methods=['DELETE'])
@@ -97,6 +97,6 @@ def update_user(user_id):
         for key, value in new_info.items():
             setattr(user, key, value)
         storage.save()
-        return jsonify(user.to_dict()), 200
+        return jsonify(user), 200
     else:
         abort(404)

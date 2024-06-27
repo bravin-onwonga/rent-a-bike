@@ -3,7 +3,7 @@
 
 from datetime import datetime
 from models.base_model import BaseModel, Base
-from sqlalchemy import Boolean, Column, ForeignKey, String, DateTime
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, DateTime
 from sqlalchemy.orm import relationship
 from models.review import Review
 
@@ -18,7 +18,7 @@ class Bike(BaseModel, Base):
 
     model = Column(String(60), nullable=False)
     category = Column(String(128), nullable=False)
-    price = Column(String(30), nullable=False)
+    price = Column(Integer, nullable=False)
     available = Column(Boolean, nullable=False, default=True)
     user_id = Column(String(60), nullable=True)
     rent_date = Column(DateTime, nullable=True)

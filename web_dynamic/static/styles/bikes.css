@@ -1,0 +1,41 @@
+.bikes-div {
+  padding: 30px;
+}
+
+.bike-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.bike {
+  border: 1px solid #96949455;
+  padding: 10px;
+  text-align: center;
+  width: calc(33.333% - 20px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+
+.bike-img {
+  height: 300px;
+  width: 100%;
+  object-fit: contain;
+  margin-bottom: 10px;
+}
+
+.bike p {
+font-size: 15px;
+font-family: "Poppins";
+}
+
+
+.rent-btn {
+  background: #d30000;
+  border: none;
+  width: 50px;
+  color: white;
+  padding: 7px;
+}

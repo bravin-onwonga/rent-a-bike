@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block extra_styles %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/contact.css', cache_id=cache_id) }}">
+{% endblock %}
+
+{% block content %}
+<div class="contact-div">
+  <h1>Contact Us</h1>
+  <div class="login-div">
+    <form class="contact-form">
+      <input type="text" name="name" placeholder="Fullname" />
+      <input type="email" name="email" placeholder="Email" />
+      <input type="phonenumber" name="phonenumber" placeholder="Phonenumber" />
+      <input type="textarea" name="message" placeholder="Message" />
+    </form>
+  </div>
+</div>
+{% endblock %}
