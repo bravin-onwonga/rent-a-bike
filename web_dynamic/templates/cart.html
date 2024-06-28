@@ -1,0 +1,11 @@
+{ extends 'base.html' }
+
+{% block extra_styles %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/cart.css', cache_id=cache_id) }}">
+{% endblock %}
+
+{% block content %}
+<div class="cart-page">
+  <h1>Cart</h1>
+</div>
+{% endblock %}

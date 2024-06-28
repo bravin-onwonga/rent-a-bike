@@ -28,3 +28,11 @@
   background: #eaeaea;
   border: 1px solid #683636;
 }
+
+.login-btn {
+background: purple;
+padding: 7px;
+margin: auto;
+color: white;
+border: none;
+}
