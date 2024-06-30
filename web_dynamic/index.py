@@ -5,6 +5,7 @@ from models import storage
 from flask import Flask, render_template
 
 from models.bike import Bike
+from models.lessor import Lessor
 app = Flask(__name__)
 
 
@@ -30,8 +31,19 @@ def signup():
 def home():
     """ Home(Landing) Page"""
     bikes = storage.all(Bike).values()
+    mountain_bikes = []
+    road_bikes = []
+    adventure_bikes = []
 
-    return render_template('home.html', bikes=bikes, cache_id=uuid.uuid4())
+    for bike in bikes:
+        if bike.get('category') == 'mountain':
+            mountain_bikes.append(bike)
+        elif bike.get('category') == 'road':
+            road_bikes.append(bike)
+        elif bike.get('category') == 'adventure':
+            adventure_bikes.append(bike)
+
+    return render_template('home.html', mountain_bikes=mountain_bikes, road_bikes=road_bikes, adventure_bikes=adventure_bikes, cache_id=uuid.uuid4())
 
 @app.route('/bikes', strict_slashes=False)
 def bikes():
@@ -58,6 +70,25 @@ def contact():
     """ Contact """
 
     return render_template('contact.html', bikes=bikes, cache_id=uuid.uuid4())
+
+@app.route('/bike/<model>', strict_slashes=False)
+def product(model):
+    """ View product """
+    bike = None
+
+    bikes = storage.all(Bike).values()
+
+    for b in bikes:
+        if b.get('model') == model:
+            bike = b
+            break
+
+    lessor = None
+
+    if bike:
+        lessor = storage.get(Lessor, bike.get('lessor_id'))
+
+    return render_template('display.html', bike=bike, lessor=lessor, cache_id=uuid.uuid4())
 
 if __name__ == "__main__":
     """ Main Function """

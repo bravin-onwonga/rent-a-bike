@@ -2,3 +2,31 @@
   color: rgb(231, 0, 0);
   font-size: 20px;
 }
+
+.category-item {
+  display: flex;
+  flex-direction: row;
+}
+
+.home-bike-img {
+  height: 200px;
+  width: 100%;
+  object-fit: contain;
+  gap: 10px;
+}
+
+.bike-details {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.view-all-btn {
+  align-self: right;
+  background: #081809;
+  border: none;
+  width: 100px;
+  color: white;
+  padding: 7px;
+  margin: auto;
+}

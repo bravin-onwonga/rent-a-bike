@@ -1,0 +1,32 @@
+.display-div {
+width: 65rem;
+margin: auto;
+}
+
+.display-container {
+display: flex;
+flex-direction: row;
+gap: 15px;
+}
+
+.bike {
+  border: 1px solid #96949455;
+  padding: 10px;
+  text-align: center;
+  width: 40%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+
+.display-img  {
+  height: auto;
+  width: 100%;
+  object-fit: contain;
+  margin-bottom: 10px;
+}
+
+.display-details {
+font-size: 18px;
+font-weight: 500;
+}

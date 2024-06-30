@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block extra_styles %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/display.css', cache_id=cache_id) }}">
+{% endblock %}
+
+{% block extra_scripts %}
+{% endblock %}
+
+{% block content %}
+<div class="display-div">
+  <h1>{{ bike.model }}</h1>
+  <div class="display-container">
+    <div class="bike">
+      <img src="{{ url_for('static', filename='images/' + bike.model + '.png') }}" alt="" class="display-img" />
+    </div>
+    <div class="display-details">
+      <p><b>Price:</b> {{ bike.price }}</p>
+      <p><b>Category:</b> {{ bike.category }}</p>
+      <p><b>Speed:</b> {{ bike.speed }}</p>
+      <p><b>Lessors:</b> {{ lessor.name }}</p>
+      <button class="rent-btn">Rent</button>
+    </div>
+  </div>
+  <div class="reviews">
+    <h2>Reviews</h2>
+    <p>{{ bike.review }}</p>
+    {% endblock %}

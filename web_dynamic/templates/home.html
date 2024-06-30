@@ -2,12 +2,78 @@
 
 {% block extra_styles %}
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/home.css', cache_id=cache_id) }}">
+<link rel="stylesheet" type="text/css"
+  href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+<link rel="stylesheet" type="text/css"
+  href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+<script src="{{ url_for('static', filename='scripts/home.js', cache_id=cache_id) }}"></script>
 {% endblock %}
 
 {% block content %}
 <div class="home-div">
   <h1>Our Bikes</h1>
   <div class="categories">
+    <h1>Mountain</h1>
+    <span>Challenge the toughest terrains with a trusted bike.</span>
+    <div class="owl-carousel category-item">
+      {% for bike in mountain_bikes %}
+      <div class="mountain_bike item">
+        <a href="/bike/{{ bike.model }}">
+          <img src="{{ url_for('static', filename='images/' + bike.model + '.png') }}" alt="" class="home-bike-img" />
+        </a>
+        <div class="bike-details">
+          <p>{{ bike.model }}</p>
+          <p><b>{{ bike.price }}</b></p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <a href="/bikes">
+      <button class="view-all-btn">View All</button>
+    </a>
+
+    <h1>Road Bikes</h1>
+    <span>Perfect for your daily commute or just to cycle in your neighbourhood</span>
+    <div class="owl-carousel category-item">
+      {% for bike in road_bikes %}
+      <div class="road_bike item">
+        <a href="/bike/{{ bike.model }}">
+          <img src="{{ url_for('static', filename='images/' + bike.model + '.png') }}" alt="" class="home-bike-img" />
+        </a>
+        <div class="bike-details">
+          <p>{{ bike.model }}</p>
+          <p><b>{{ bike.price }}</b></p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <a href="/bikes">
+      <button class="view-all-btn">View All</button>
+    </a>
+
+    <h1>Adventure Bikes</h1>
+    <span>Best option for touring the country.</span>
+    <div class="owl-carousel category-item">
+      {% for bike in adventure_bikes %}
+      <div class="adventure_bike item">
+        <a href="/bike/{{ bike.model }}">
+          <img src="{{ url_for('static', filename='images/' + bike.model + '.png') }}" alt="" class="home-bike-img" />
+        </a>
+        <div class="bike-details">
+          <p>{{ bike.model }}</p>
+          <p><b>{{ bike.price }}</b></p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <a href="/bikes">
+      <button class="view-all-btn">View All</button>
+    </a>
   </div>
 </div>
 {% endblock %}

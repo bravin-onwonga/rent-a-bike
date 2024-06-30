@@ -10,7 +10,9 @@
   <div class="bike-container">
     {% for bike in bikes %}
     <div class="bike">
-      <img src="{{ url_for('static', filename='images/' + bike.model + '.png') }}" alt="" class="bike-img" />
+      <a href="/bike/{{ bike.model }}">
+        <img src="{{ url_for('static', filename='images/' + bike.model + '.png') }}" alt="" class="bike-img" />
+      </a>
       <div class="bike-details">
         <p>{{ bike.model }}</p>
         <p><b>{{ bike.price }}</b></p>

@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" type="text/css" href="../static/styles/base.css?{{ cache_id }}" />
   {% block extra_styles %}{% endblock %}
+  {% block extra_scripts %}{% endblock %}
   <title>Rent-a-bike</title>
 </head>
 
@@ -28,29 +29,41 @@
     {% endblock %}
   </main>
 
+  <hr />
   <footer class="footer-div">
-    <hr />
-    <div>
+    <div class="footer-divs">
       <div class="quick-links">
+        <h2>Quick Links</h2>
         <a href="/home">Home</a>
-        <a href="/home">Bikes</a>
-        <a href="/home">Lessors</a>
-        <a href="/home">ContactUs</a>
-        <a href="/home">SignUp</a>
+        <a href="/bikes">Bikes</a>
+        <a href="/lessors">Lessors</a>
+        <a href="/contact">ContactUs</a>
+        <a href="/signup">SignUp</a>
+        <a href="/login">Login</a>
       </div>
-      <div>
+      <div class="quick-links">
         <h4>Address</h4>
         <p>4348-00100</p>
         <p>Juja Road</p>
         <p>Nairobi, Kenya</p>
       </div>
       <div class="quick-links">
+        <h4>Follow Us</h4>
+        <a href="https://www.facebook.com/"><img src="../static/images/facebook.png" alt="facebook" /></a>
+        <a href="https://www.twitter.com/"><img src="../static/images/twitter.png" alt="twitter" /></a>
+        <a href="https://www.instagram.com/"><img src="../static/images/instagram.png" alt="instagram" /></a>
+      </div>
+      <div class="quick-links">
+        <h4>Contact</h4>
         <span>Rent a Bike</span>
         <span>rentabike@gmail.com</span>
       </div>
 
     </div>
-    <span>Copyright @2024 Rent a Bike</span>
+    <div class="copyright-info">
+      <hr />
+      <span>Copyright @2024 Rent a Bike</span>
+    </div>
   </footer>
 
 </body>

@@ -10,5 +10,39 @@ gap: 30px;
 color: black;}
 
 .footer-div {
+display: flex;
+flex-direction: column;
+justify-content: center;
+width: 100%;
+color: white;
+background-color: rgb(53, 52, 50);
+}
+
+.footer-divs {
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+width: 75rem;
+margin: auto;
+}
+
+
+.footer-divs a {
+color: white;
+}
+
+.quick-links {
+display: flex;
+flex-direction: column;
+justify-content: center;
+gap: 5px;
+}
+
+.copyright-info {
 text-align: center;
+}
+
+.copyright-info span {
+font-size: 20px;
+font-weight: 400;
 }
