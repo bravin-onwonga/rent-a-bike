@@ -3,7 +3,7 @@
 Module to handle restful api actions for the user
 """
 
-from flask import abort, jsonify, request
+from flask import abort, flash, jsonify, redirect, request, url_for
 from api.v1.views import app_views
 from models import storage
 from models.bike import Bike
@@ -88,7 +88,8 @@ def create_user():
     new_user = User(**user)
     storage.new(new_user)
     storage.save()
-    return jsonify(str(new_user.to_dict())), 201
+
+    return redirect('http://localhost:5001/login'), 201
 
 @app_views.route('/users/<user_id>', strict_slashes=False, methods=['PUT'])
 def update_user(user_id):
@@ -114,3 +115,24 @@ def update_user(user_id):
         return jsonify(user), 200
     else:
         abort(404)
+
+
+@app_views.route('/users/login', strict_slashes=False, methods=['POST'])
+def login():
+    """Allows the user to login """
+    user_info = request.form
+
+    if not user_info:
+        abort(400, 'Missing information')
+
+    if not user_info.get('email') or not user_info.get('password'):
+        abort(400, 'Missing email or password')
+
+    hashed_password = hashlib.md5(user_info['password'].encode('utf-8')).hexdigest()
+
+    user = storage.all(User)
+
+    for user in user.values():
+        if user.get('email') == user_info['email'] and user.get('password') == hashed_password:
+            return redirect('http://localhost:5001/home'), 200
+    abort(404)
