@@ -8,7 +8,7 @@ from api.v1.views import app_views
 from models import storage
 from models.bike import Bike
 from models.user import User
-
+import hashlib
 
 @app_views.route('/users', strict_slashes=False, methods=['GET'])
 def get_users():
@@ -56,13 +56,12 @@ def delete_user(user_id):
 
 @app_views.route('/users', strict_slashes=False, methods=['POST'])
 def create_user():
-    user_info = request.get_json()
+    user_info = request.form
 
     errors = ['email',
               'firstname',
               'lastname',
-              'id_number',
-              'phone_number']
+              'id_number']
 
     if not user_info:
         abort(400, 'Missing information')
@@ -71,10 +70,25 @@ def create_user():
             if (key == "phone_number"):
                 abort(400, "Missing phone number")
             abort(400, "Missing {}".format(key))
-    new_user = User(**user_info)
+
+    hashed_password = hashlib.md5(user_info['password'].encode('utf-8')).hexdigest()
+
+    user = {
+        "firstname": user_info['firstname'],
+        "middlename": user_info.get('middlename', ''),
+        "lastname": user_info['lastname'],
+        "email": user_info['email'],
+        "id_number": user_info['id_number'],
+        "phone_number": user_info.get('phone_number', ''),
+        "password": hashed_password,
+        "county": user_info.get('county', ''),
+        "street_address": user_info.get('street_address', '')
+    }
+
+    new_user = User(**user)
     storage.new(new_user)
     storage.save()
-    return jsonify(new_user.to_dict()), 201
+    return jsonify(str(new_user.to_dict())), 201
 
 @app_views.route('/users/<user_id>', strict_slashes=False, methods=['PUT'])
 def update_user(user_id):

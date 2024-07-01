@@ -53,17 +53,18 @@ def bikes():
     return render_template('bikes.html', bikes=bikes, cache_id=uuid.uuid4())
 
 
-@app.route('/services', strict_slashes=False)
-def services():
-    """ Services """
+@app.route('/about', strict_slashes=False)
+def about():
+    """ About """
 
-    return render_template('services.html', bikes=bikes, cache_id=uuid.uuid4())
+    return render_template('about.html', bikes=bikes, cache_id=uuid.uuid4())
 
 @app.route('/lessors', strict_slashes=False)
 def lessors():
-    """ Services """
+    """ Lessors """
+    lessors = storage.all(Lessor).values()
 
-    return render_template('lessors.html', bikes=bikes, cache_id=uuid.uuid4())
+    return render_template('lessors.html', lessors=lessors, cache_id=uuid.uuid4())
 
 @app.route('/contact', strict_slashes=False)
 def contact():
@@ -89,6 +90,42 @@ def product(model):
         lessor = storage.get(Lessor, bike.get('lessor_id'))
 
     return render_template('display.html', bike=bike, lessor=lessor, cache_id=uuid.uuid4())
+
+@app.route('/bike/mountain', strict_slashes=False)
+def display_mountain():
+    """ Display mountain bikes """
+    bikes = storage.all(Bike).values()
+    mountain_bikes = []
+
+    for bike in bikes:
+        if bike.get('category') == 'mountain':
+            mountain_bikes.append(bike)
+
+    return render_template('mountain.html', mountain_bikes=mountain_bikes, cache_id=uuid.uuid4())
+
+@app.route('/bike/road', strict_slashes=False)
+def display_road():
+    """ Display road bikes """
+    bikes = storage.all(Bike).values()
+    road_bikes = []
+
+    for bike in bikes:
+        if bike.get('category') == 'mountain':
+            road_bikes.append(bike)
+
+    return render_template('road.html', road_bikes=road_bikes, cache_id=uuid.uuid4())
+
+@app.route('/bike/adventure', strict_slashes=False)
+def display_adventure():
+    """ Display adventure bikes """
+    bikes = storage.all(Bike).values()
+    adventure_bikes = []
+
+    for bike in bikes:
+        if bike.get('category') == 'mountain':
+            adventure_bikes.append(bike)
+
+    return render_template('adventure.html', adventure_bikes=adventure_bikes, cache_id=uuid.uuid4())
 
 if __name__ == "__main__":
     """ Main Function """

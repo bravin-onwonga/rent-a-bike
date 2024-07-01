@@ -16,7 +16,16 @@
 
 {% block content %}
 <div class="home-div">
-  <h1>Our Bikes</h1>
+  <div class="intro">
+    <h1>Welcome to Rent-a-bike</h1>
+    <p>
+      Rent-a-bike is a bike rental service that offers a wide range of bikes for rent. We have mountain bikes, road
+      bikes, and adventure bikes. Our bikes are well maintained and are available at affordable prices. We also have a
+      team of experienced mechanics who ensure that our bikes are in good condition. Rent-a-bike is the best place to
+      rent a bike in Nairobi.
+    </p>
+  </div>
+  <h1 class="collection-header">Our Collection</h1>
   <div class="categories">
     <h1>Mountain</h1>
     <span>Challenge the toughest terrains with a trusted bike.</span>
@@ -33,7 +42,7 @@
       </div>
       {% endfor %}
     </div>
-    <a href="/bikes">
+    <a href="/bike/mountain">
       <button class="view-all-btn">View All</button>
     </a>
 
@@ -52,7 +61,7 @@
       </div>
       {% endfor %}
     </div>
-    <a href="/bikes">
+    <a href="/bike/road">
       <button class="view-all-btn">View All</button>
     </a>
 
@@ -71,9 +80,20 @@
       </div>
       {% endfor %}
     </div>
-    <a href="/bikes">
+    <a href="/bike/adventure">
       <button class="view-all-btn">View All</button>
     </a>
+  </div>
+  <div>
+    <h1>About Us</h1>
+    <div>
+      <p>
+        Rent-a-bike is a bike rental service that offers a wide range of bikes for rent. We have mountain bikes, road
+        bikes, and adventure bikes. Our bikes are well maintained and are available at affordable prices. We also have
+        a team of experienced mechanics who ensure that our bikes are in good condition. Rent-a-bike is the best place
+        to rent a bike in Nairobi.
+      </p>
+    </div>
   </div>
 </div>
 {% endblock %}

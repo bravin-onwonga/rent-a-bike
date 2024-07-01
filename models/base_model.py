@@ -62,6 +62,8 @@ class BaseModel:
         dict_obj = {}
 
         for obj_key, obj_val in self.__dict__.items():
+            if obj_key is "_sa_instance_state":
+                continue
             if obj_key in {"updated_at", "created_at"}:
                 dict_obj[obj_key] = obj_val.isoformat()
             else:
