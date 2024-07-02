@@ -4,6 +4,11 @@
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/bikes.css', cache_id=cache_id) }}">
 {% endblock %}
 
+{% block extra_scripts %}
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="{{ url_for('static', filename='scripts/bikes.js', cache_id=cache_id) }}"></script>
+{% endblock %}
+
 {% block content %}
 <div class="bikes-div">
   <h1>Bikes</h1>
@@ -17,10 +22,18 @@
         <p>{{ bike.model }}</p>
         <p><b>{{ bike.price }}</b></p>
       </div>
-      <button class="rent-btn">Rent</button>
+      <button class="rent-btn" data-model="{{bike.model}}" data-price="{{bike.price}}"
+        data-available="{{bike.available}}">Rent</button>
     </div>
     {% endfor %}
   </div>
-
+  <div class="cart-page">
+    <span id="close-cart-btn" class="close-btn">&times;</span>
+    <div id="cart-list"></div>
+    <div id="total-div">
+      <h1>Total: Ksh<span id="total"></span></h1>
+      <button id="checkout-btn">Checkout</button>
+    </div>
+  </div>
 </div>
 {% endblock %}

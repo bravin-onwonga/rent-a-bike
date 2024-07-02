@@ -127,6 +127,12 @@ def display_adventure():
 
     return render_template('adventure.html', adventure_bikes=adventure_bikes, cache_id=uuid.uuid4())
 
+@app.route('/cart', strict_slashes=False)
+def cart():
+    """Link to cart template"""
+    return render_template('cart.html', cache_id=uuid.uuid4())
+
+
 if __name__ == "__main__":
     """ Main Function """
     app.run(host='0.0.0.0', port=5001, debug=True)
