@@ -1,17 +1,47 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  background: transparent;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background: rgb(255, 255, 255, 1);
+  overflow: hidden;
+  overflow-y: scroll;
+  height: 100vh;
+}
+
 .nav-items {
 display: flex;
 flex-direction: row;
-justify-content: center;
+justify-content: space-between;
 align-items: center;
-gap: 200px;
+margin: 0 50px;
 }
 
 .nav-links {
 display: flex;
 flex-direction: row;
 justify-content: center;
+font-size: 17px;
+font-weight: 500;
 list-style: none;
 gap: 30px;
+}
+
+.nav-links :hover {
+cursor: pointer;
+color: rgb(255, 99, 99);
+text-decoration: underline;
+}
+
+.logo {
+height: 70px;
+width: 70px;
+object-fit: contain;
 }
 
 .nav-links a {
@@ -27,7 +57,6 @@ width: 20px;
 display: flex;
 flex-direction: row;
 justify-content: center;
-margin-right: -300px;
 gap: 20px;
 }
 
@@ -68,16 +97,11 @@ gap: 5px;
 }
 
 .fb-img,
-.insta-img {
+.insta-img,
+.twitter-img {
   width: 30px;
   height: 30px;
   object-fit: cover;
-}
-
-.twitter-img {
-height: 40px;
-width: 40px;
-object-fit: cover;
 }
 
 .copyright-info {

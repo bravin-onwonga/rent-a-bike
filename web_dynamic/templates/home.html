@@ -25,75 +25,70 @@
       rent a bike in Nairobi.
     </p>
   </div>
-  <h1 class="collection-header">Our Collection</h1>
-  <div class="categories">
-    <h1>Mountain</h1>
-    <span>Challenge the toughest terrains with a trusted bike.</span>
-    <div class="owl-carousel category-item">
-      {% for bike in mountain_bikes %}
-      <div class="mountain_bike item">
-        <a href="/bike/{{ bike.model }}">
-          <img src="{{ url_for('static', filename='images/' + bike.model + '.png') }}" alt="" class="home-bike-img" />
-        </a>
-        <div class="bike-details">
-          <p>{{ bike.model }}</p>
-          <p><b>{{ bike.price }}</b></p>
-        </div>
-      </div>
-      {% endfor %}
-    </div>
-    <a href="/bike/mountain">
-      <button class="view-all-btn">View All</button>
-    </a>
-
-    <h1>Road Bikes</h1>
-    <span>Perfect for your daily commute or just to cycle in your neighbourhood</span>
-    <div class="owl-carousel category-item">
-      {% for bike in road_bikes %}
-      <div class="road_bike item">
-        <a href="/bike/{{ bike.model }}">
-          <img src="{{ url_for('static', filename='images/' + bike.model + '.png') }}" alt="" class="home-bike-img" />
-        </a>
-        <div class="bike-details">
-          <p>{{ bike.model }}</p>
-          <p><b>{{ bike.price }}</b></p>
-        </div>
-      </div>
-      {% endfor %}
-    </div>
-    <a href="/bike/road">
-      <button class="view-all-btn">View All</button>
-    </a>
-
-    <h1>Adventure Bikes</h1>
-    <span>Best option for touring the country.</span>
-    <div class="owl-carousel category-item">
-      {% for bike in adventure_bikes %}
-      <div class="adventure_bike item">
-        <a href="/bike/{{ bike.model }}">
-          <img src="{{ url_for('static', filename='images/' + bike.model + '.png') }}" alt="" class="home-bike-img" />
-        </a>
-        <div class="bike-details">
-          <p>{{ bike.model }}</p>
-          <p><b>{{ bike.price }}</b></p>
-        </div>
-      </div>
-      {% endfor %}
-    </div>
-    <a href="/bike/adventure">
-      <button class="view-all-btn">View All</button>
-    </a>
+  <div class="getting-started">
+    <h1>Getting Started</h1>
+    <p>We have provided a simple and seamless way for your to rent a bike. Simply click on the rent button to rent the
+      bike you like. To view your selected bikes click on the cart icon, click on the <b>x</b> icon to remove the item
+      from cart. If you want more information click anywhere but the rent button on the image card. You will be
+      required to provide self-identifying information i.e. your official names and your ID or Passport number and once
+      your information has been verified your bike(s) will be delivered to your location as indicated.
+    </p>
+    <br />
+    <p>Once your identity is verified you will have an account created and you will just login and begin the return
+      process. Alternatively, you could drop them off to any of our lessors and we will pick them up.</p>
+    <button>Get Started</button>
   </div>
-  <div>
-    <h1>About Us</h1>
-    <div>
-      <p>
-        Rent-a-bike is a bike rental service that offers a wide range of bikes for rent. We have mountain bikes, road
-        bikes, and adventure bikes. Our bikes are well maintained and are available at affordable prices. We also have
-        a team of experienced mechanics who ensure that our bikes are in good condition. Rent-a-bike is the best place
-        to rent a bike in Nairobi.
-      </p>
+  <div class="collection-div">
+    <h1 class="collection-header">Our Collection</h1>
+    <div class="categories">
+      <div class="category-div">
+        <div class="category-info">
+          <h1>Mountain Bikes</h1>
+          <span>Challenge the toughest terrains with a trusted bike. Check out our collection of <b>Mountain Bikes</b>
+            that are great for challenging the great out door and scaling the toughest terrains</span>
+          <a href="/bike/mountain">
+            <button class="view-all-btn">View All</button>
+          </a>
+        </div>
+        <img src="{{ url_for('static', filename='images/mountain_bike2.jpg') }}" alt="mountain-bike"
+          class="category-img" />
+      </div>
+
+      <div class="category-div">
+        <img src="{{ url_for('static', filename='images/road.jpg') }}" alt="mountain-bike" class="category-img" />
+        <div class="category-info">
+          <h1>Road</h1>
+          <span>Perfect for your daily commute or just to cycle in your neighbourhood</span>
+          <a href="/bike/road">
+            <button class="view-all-btn">View All</button>
+          </a>
+        </div>
+      </div>
+
+      <div class="category-div">
+        <div class="category-info">
+          <h1>Adventure</h1>
+          <span>Best option for touring the country.</span>
+          <a href="/bike/adventure">
+            <button class="view-all-btn">View All</button>
+          </a>
+        </div>
+        <img src="{{ url_for('static', filename='images/adventure.jpg') }}" alt="mountain-bike" class="category-img" />
+      </div>
+      <div>
+        <h1>About Us</h1>
+        <div>
+          <p>
+            Rent-a-bike is a bike rental service that offers a wide range of bikes for rent. We have mountain bikes,
+            road
+            bikes, and adventure bikes. Our bikes are well maintained and are available at affordable prices. We also
+            have
+            a team of experienced mechanics who ensure that our bikes are in good condition. Rent-a-bike is the best
+            place
+            to rent a bike in Nairobi.
+          </p>
+        </div>
+      </div>
     </div>
   </div>
-</div>
-{% endblock %}
+  {% endblock %}
