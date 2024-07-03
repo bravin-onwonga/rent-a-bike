@@ -2,6 +2,15 @@
 display: flex;
 flex-direction: column;
 justify-content: center;
+margin: 20px auto;
+/* background-color: antiquewhite; */
+background-color: rgb(255, 221, 206);
+}
+
+.categories {
+display: flex;
+flex-direction: column;
+justify-content: center;
 width: 75rem;
 margin: 30px auto;
 }
@@ -64,16 +73,6 @@ margin: 30px auto;
   text-align: center;
 }
 
-.view-all-btn {
-  align-self: right;
-  background: #081809;
-  border: none;
-  width: 100px;
-  color: white;
-  padding: 7px;
-  margin: auto;
-}
-
 
 .category-div {
 display: flex;
@@ -83,6 +82,7 @@ gap: 20px;
 width: 65rem;
 padding: 20px;
 margin: auto;
+margin-top: 20px;
 }
 
 .category-info {
@@ -96,6 +96,7 @@ width: 50%;
   height: 500px;
   width: 50%;
   object-fit: contain;
+  margin-top: 30px;
 }
 
 .getting-started {
@@ -108,16 +109,58 @@ padding: 30px 10px 10px 10px;
 }
 
 .getting-started h1 {
-text-align: center;
+  color: rgb(0, 0, 0);
+  font-size: 50px;
+  font-weight: 600;
+  text-align: center;
+  padding: 20px;
+/* text-align: center;
 font-size: 35px;
 font-weight: 700;
-padding: 20px 0;
+padding: 20px 0; */
 }
 
-.getting-started button {
-background: #081809;
+.getting-started button,
+.view-all-btn {
+background: rgb(255, 99, 99);
 border: none;
+border-radius: 25px;
 color: #fff;
-padding: 10px;
-margin: auto;
+cursor: pointer;
+align-items: center;
+padding: 0.7rem 1.3rem;
+margin: 2rem auto;
+font-size: 1rem;
+}
+
+.aboutus-div {
+display: flex;
+flex-direction: column;
+justify-content: center;
+width: 65rem;
+margin: 30px auto;
+}
+
+.aboutus-div h1 {
+  color: rgb(0, 0, 0);
+  font-size: 50px;
+  font-weight: 600;
+  text-align: center;
+  padding: 20px;
+}
+
+.aboutus-intro h3 {
+  color: rgb(0, 0, 0);
+  font-size: 40px;
+  font-weight: 600;
+  text-align: center;
+  padding: 20px;
+}
+
+.meet-dev h4 {
+  color: rgb(0, 0, 0);
+  font-size: 30px;
+  font-weight: 600;
+  text-align: center;
+  padding: 20px;
 }
