@@ -24,7 +24,6 @@ $(document).ready(function(){
 
   function cartDisplay() {
     const cartList = document.getElementById('cart-list');
-    const totalPriceDiv = document.getElementById('total-price');
 
     cartList.innerHTML = '';
     for (const [model, quantity] of Object.entries(cart)) {
@@ -69,7 +68,7 @@ $(document).ready(function(){
 
   function removeItem(model) {
     if (model && cart[model]) {
-      itemPrice = document.querySelector(`[data-model="${model}"]`).getAttribute('data-price')
+      const itemPrice = document.querySelector(`[data-model="${model}"]`).getAttribute('data-price')
       totalPrice -= parseFloat(cart[model] * itemPrice)
 
       delete cart[model];
