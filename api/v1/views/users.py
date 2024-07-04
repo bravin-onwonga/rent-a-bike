@@ -56,7 +56,7 @@ def delete_user(user_id):
 
 @app_views.route('/users', strict_slashes=False, methods=['POST'])
 def create_user():
-    user_info = request.form
+    user_info = request.get_json()
 
     errors = ['email',
               'firstname',
@@ -89,7 +89,7 @@ def create_user():
     storage.new(new_user)
     storage.save()
 
-    return redirect('http://localhost:5001/login'), 201
+    return jsonify(new_user.to_dict()), 201
 
 @app_views.route('/users/<user_id>', strict_slashes=False, methods=['PUT'])
 def update_user(user_id):

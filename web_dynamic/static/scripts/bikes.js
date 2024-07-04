@@ -2,9 +2,16 @@ $(document).ready(function(){
   const cart = JSON.parse(localStorage.getItem('cart')) || {};
   let totalPrice = parseFloat(localStorage.getItem('totalPrice')) || 0;
 
+  if (cart.length === 0) {
+    totalPrice = 0
+    localStorage.setItem('totalPrice', totalPrice);
+    cartDisplay();
+  }
+
   const cartIcon = $('.cart-icon');
   const cartPage = $('.cart-page');
   const closeImg = $('.close-img');
+  const cartCount = $('.item-count');
 
   cartIcon.on('click', function () {
     cartPage.addClass('show');
@@ -26,12 +33,12 @@ $(document).ready(function(){
     const cartList = document.getElementById('cart-list');
 
     cartList.innerHTML = '';
-    for (const [model, quantity] of Object.entries(cart)) {
+    for (const [model, price] of Object.entries(cart)) {
       const cartItem = document.createElement('li');
       $(cartItem).addClass('list-group-item');
       const cartItemImg = $('<img>', { src: `../static/images/${model}.png`, class: 'bike-cart-img'});
       $(cartItem).append(cartItemImg);
-      $(cartItem).append(`${model} - ${quantity}`);
+      $(cartItem).append(`${model} - ${price}`);
       const closeImg = $('<img>', { src: '../static/images/remove.png', class: 'remove-img', 'data-model': model})
       $(cartItem).append(closeImg)
 
@@ -39,37 +46,29 @@ $(document).ready(function(){
     };
 
     $('#total').html(`${totalPrice}`);
+    cartCount.html(Object.keys(cart).length);
   }
 
   document.querySelectorAll('.rent-btn').forEach((cartButton) => {
     cartButton.addEventListener('click', () => {
       const bikeModel = cartButton.getAttribute('data-model');
       const price = Number(cartButton.getAttribute('data-price'));
-      const availabile = Number(cartButton.getAttribute('data-availabile'));
 
       console.log(price);
 
-      if (cart[bikeModel]) {
-        if (cart[bikeModel] < availabile) {
-          cart[bikeModel] += 1;
-        }
-      } else {
-        cart[bikeModel] = 1;
+      if (!cart[bikeModel]) {
+          cart[bikeModel] = price;
+          totalPrice += price;
       }
-      totalPrice += price;
-      console.log(totalPrice);
-
       localStorage.setItem('cart', JSON.stringify(cart));
       localStorage.setItem('totalPrice', totalPrice.toFixed(2));
       cartDisplay();
-      console.log(cart);
     })
   });
 
   function removeItem(model) {
     if (model && cart[model]) {
-      const itemPrice = document.querySelector(`[data-model="${model}"]`).getAttribute('data-price')
-      totalPrice -= parseFloat(cart[model] * itemPrice)
+      totalPrice -= parseFloat(cart[model])
 
       delete cart[model];
 
@@ -77,4 +76,6 @@ $(document).ready(function(){
       localStorage.setItem('totalPrice', totalPrice.toFixed(2));
     }
   }
+
+  cartCount.html(Object.keys(cart).length);
 });

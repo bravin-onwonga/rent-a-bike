@@ -38,6 +38,33 @@ color: rgb(255, 99, 99);
 text-decoration: underline;
 }
 
+.nav-links:active {
+  cursor: pointer;
+  color: rgb(255, 99, 99);
+  text-decoration: underline;
+}
+
+.cart-details {
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: center;
+}
+
+.item-count {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: -10px;
+  margin-left: -5px;
+  border-radius: 11px;
+  font-size: 14px;
+  background: red;
+  color: white;
+}
+
 .logo {
 height: 70px;
 width: 70px;
@@ -51,6 +78,7 @@ color: black;
 .cart-icon {
 height: 20px;
 width: 20px;
+cursor: pointer;
 }
 
 .nav-cart-items {
