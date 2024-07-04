@@ -132,6 +132,11 @@ def cart():
     """Link to cart template"""
     return render_template('cart.html', cache_id=uuid.uuid4())
 
+@app.route('/checkout', strict_slashes=False)
+def checkout():
+    """Checkout page"""
+    return render_template('checkout.html', cache_id=uuid.uuid4())
+
 
 if __name__ == "__main__":
     """ Main Function """

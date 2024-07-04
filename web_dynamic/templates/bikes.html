@@ -28,11 +28,12 @@
     {% endfor %}
   </div>
   <div class="cart-page">
-    <span id="close-cart-btn" class="close-btn">&times;</span>
+    <img src="{{ url_for('static', filename='images/close.png') }}" alt="close_img" id="close-cart-img"
+      class="close-img" />
     <div id="cart-list"></div>
     <div id="total-div">
-      <h1>Total: Ksh<span id="total"></span></h1>
-      <button id="checkout-btn">Checkout</button>
+      <h1>Total: Ksh <span id="total"></span></h1>
+      <button id="checkout-btn" class="checkout-btn">Checkout</button>
     </div>
   </div>
 </div>
