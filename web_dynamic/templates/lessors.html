@@ -7,12 +7,13 @@
 {% block content %}
 <div class="lessors-div">
   <h1>Our Partners</h1>
-  <div>
+  <div class="lessor-cards">
     {% for lessor in lessors %}
-    <div class="lessor">
+    <div class="lessor-card">
       <h2>{{ lessor.name }}</h2>
-      <p>{{ lessor.email }}</p>
-      <p>{{ lessor.phone }}</p>
+      <hr />
+      <p class="lessor-email">{{ lessor.email }}</p>
+      <p class="lessor-phone">{{ lessor.phone }}</p>
 
       <a href="{{ lessor.website }}" target="_blank">Visit Website</a>
     </div>

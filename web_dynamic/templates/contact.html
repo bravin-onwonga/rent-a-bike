@@ -13,12 +13,13 @@
 {% block content %}
 <div class="contact-div">
   <h1>Contact Us</h1>
-  <div class="login-div">
+  <div class="contact-form-div">
     <form class="contact-form">
-      <input type="text" name="name" placeholder="Fullname" />
-      <input type="email" name="email" placeholder="Email" />
-      <input type="phonenumber" name="phonenumber" placeholder="Phonenumber" />
-      <input type="textarea" name="message" placeholder="Message" />
+      <input type="text" name="name" class="name" placeholder="Fullname" />
+      <input type="email" name="email" class="email" placeholder="Email" />
+      <input type="phonenumber" name="phonenumber" class="phonenumber" placeholder="Phonenumber" />
+      <textarea name="message" name="message" class="message" placeholder="Message" rows="5"></textarea>
+      <button type="submit" class="contact-btn">Submit</button>
     </form>
   </div>
 </div>

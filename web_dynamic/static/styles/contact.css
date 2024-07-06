@@ -1,0 +1,44 @@
+.contact-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 55rem;
+  margin: auto;
+  height: 100vh;
+}
+
+.contact-div h1 {
+font-size: 40px;
+font-weight: 600;
+padding: 1rem;
+}
+
+.name,
+.email,
+.message,
+.phonenumber {
+  font-size: medium;
+  width: 100%;
+  margin: 0.5rem;
+  padding: 0.5rem 1rem;
+  color: black;
+  border: none;
+  border-radius: 0.5rem;
+  background: hsl(207, 100%, 87%);
+  font-family: "Poppins", sans-serif;
+}
+
+.contact-btn {
+  background: rgb(0, 52, 87);
+  color: #ffffff;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.7rem 2.5rem;
+  margin: 10px calc(50% - 20px);
+  font-family: "Poppins", sans-serif;
+  align-self: center;
+}
+
+::placeholder {
+  color: rgb(39, 38, 38);
+}

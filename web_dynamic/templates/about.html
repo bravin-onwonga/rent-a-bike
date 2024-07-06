@@ -3,10 +3,62 @@
 {% block extra_styles %}
 <link rel="stylesheet" type="text/css"
   href="{{ url_for('static', filename='styles/services.css', cache_id=cache_id) }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/home.css', cache_id=cache_id) }}">
 {% endblock %}
 
 {% block content %}
-<div class="services-div">
-  <h1>Services</h1>
+<div class="about-div">
+  <div class="aboutus-div">
+    <h1>About Us</h1>
+    <div class="aboutus-intro">
+      <p>
+        Cycling is a great way to stay fit and healthy. It is also a fun way to explore new places. At Rent-a-bike, we
+        are passionate about cycling. We believe that everyone should have access to a bike. That is why we offer a wide
+        range of bikes for rent. Whether you are a beginner or an experienced cyclist, we have a bike for you. Our bikes
+        are well maintained and are available at affordable prices. We also have a team of experienced mechanics who
+        ensure that our bikes are in good condition. <br /> <br />Rent-a-bike is the best place to rent a bike in
+        Nairobi. Our
+        aim is
+        to provide our customers with the best cycling experience. We are committed to providing high-quality bikes and
+        excellent customer service. We are always looking for ways to improve our service and we welcome your feedback.
+        If you have any questions or suggestions, please feel free to contact us. We look forward to hearing from you.
+        <br />
+      <h3>Our Origin</h3>
+      <p>A popular weekend activity when I was in campus was cycling where you could provide you ID and pay up then
+        get
+        a bicycle for the entire day. After finishing campus and moving away from the school for work I realised how
+        difficult it was to find a one-stop shop where you could rent any bike that was both efficient and reliable.
+        In
+        most cases the best shot was to go directly to the shop which was an option due to the added hustle of
+        transporting the bike to where I lived.</p>
+      <br />
+      <p>As such, I decided to come up with a platform through which you could easily rent a bike and have it
+        delivered
+        be it to your home, office, school or just below your hiking trail.</p>
+      <p>I hope that the platform encourages more people to choose cycling which is both good for your health and for
+        the environment. Cycling is flexible and cheap compared to alternative transport means.</p>
+      <br /><br />
+      <p>Though this is a passion project, it is also a project for the program run by <a
+          href="https://www.holbertonschool.com/">Holberton School</a>.</p>
+    </div>
+    <div class="meet-dev">
+      <h4>Meet the developer</h4>
+      <span>Hi, I am Bravin Onwonga</span>
+      <p>I am currently doing the alx program. I am passionate about building software and how I can use my skills as a
+        software engineer to tackle current problems, fill market gaps and provide services that are required by the
+        community around me. This is part of the many projects I have done. If you want to learn more kindly visit my
+        linkedIn, github and twitter using the links below.</p>
+      <h5>Let's connect</h5>
+      <div class="dev-social-links">
+        <a href="https://github.com/bravin-onwonga"><img src="../static/images/github.png" alt="github"
+            class="git-img" /></a>
+        <a href="https://x.com/OnwongaBravin"><img src="../static/images/twitter.png" alt="twitter"
+            class="twitter-img" /></a>
+        <a href="https://www.linkedin.com/in/bravin-onwonga-913296239/"><img src="../static/images/linkedIn.png"
+            alt="linkedIn" class="linkedin-img" /></a>
+      </div>
+
+    </div>
+  </div>
 </div>
 {% endblock %}

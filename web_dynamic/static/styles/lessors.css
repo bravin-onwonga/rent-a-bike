@@ -1,2 +1,46 @@
 .lessors-div {
-height: 100vh;}
+  display: flex;
+  flex-direction: column;
+  width: 65rem;
+  margin: 0 auto;
+  align-items: center;
+  height: 100vh;
+}
+
+.lessors-div h1 {
+  color: rgb(0, 0, 0);
+  font-size: 35px;
+  font-weight: 600;
+  padding: 1rem;
+}
+
+.lessor-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+}
+
+.lessor-card {
+  border: 1px solid #96949455;
+  padding: 10px;
+  text-align: center;
+  width: calc(50% - 20px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+
+.lessor-card h2 {
+color: brown;
+padding: 1rem;
+font-size: 22px;
+font-weight: 600;
+}
+
+.lessor-email {
+  font-size: 18px;
+  font-family: "Poppins";
+  padding: 10px;
+}
+
