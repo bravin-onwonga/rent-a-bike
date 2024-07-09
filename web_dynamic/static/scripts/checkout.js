@@ -1,9 +1,9 @@
-$(document).ready(function(){
+$(document).ready(function () {
   const cart = JSON.parse(localStorage.getItem('cart')) || {};
   let totalPrice = parseFloat(localStorage.getItem('totalPrice')) || 0;
 
   if (cart.length === 0) {
-    totalPrice = 0
+    totalPrice = 0;
     localStorage.setItem('totalPrice', totalPrice);
     cartDisplay();
   }
@@ -16,7 +16,7 @@ $(document).ready(function(){
   orderBtn.on('click', function () {
     localStorage.clear();
     cartDisplay();
-  })
+  });
 
   cartIcon.on('click', function () {
     cartPage.addClass('show');
@@ -34,29 +34,29 @@ $(document).ready(function(){
     cartDisplay();
   });
 
-  function cartDisplay() {
+  function cartDisplay () {
     const cartList = document.getElementById('cart-list');
 
     cartList.innerHTML = '';
     for (const [model, price] of Object.entries(cart)) {
       const cartItem = document.createElement('li');
       $(cartItem).addClass('list-group-item');
-      const cartItemImg = $('<img>', { src: `../static/images/${model}.png`, class: 'bike-cart-img'});
+      const cartItemImg = $('<img>', { src: `../static/images/${model}.png`, class: 'bike-cart-img' });
       $(cartItem).append(cartItemImg);
       $(cartItem).append(`${model} - ${price}`);
-      const closeImg = $('<img>', { src: '../static/images/remove.png', class: 'remove-img', 'data-model': model})
-      $(cartItem).append(closeImg)
+      const closeImg = $('<img>', { src: '../static/images/remove.png', class: 'remove-img', 'data-model': model });
+      $(cartItem).append(closeImg);
 
       cartList.appendChild(cartItem);
-    };
+    }
 
     $('#total').html(`${totalPrice}`);
   }
   cartDisplay();
 
-  function removeItem(model) {
+  function removeItem (model) {
     if (model && cart[model]) {
-      totalPrice -= parseFloat(cart[model])
+      totalPrice -= parseFloat(cart[model]);
 
       delete cart[model];
 
@@ -75,32 +75,37 @@ $(document).ready(function(){
       return obj;
     }, {});
 
+    const returnDate = formData.return_date;
+    delete formData.return_date;
+
     $.ajax({
       type: 'POST',
       url: 'http://localhost:5000/api/v1/users',
       data: JSON.stringify(formData),
       contentType: 'application/json',
       success: function (response) {
-        userId = response.id;
-        updateBikeDetails(userId);
+        const userId = response.id;
+        updateBikeDetails(userId, returnDate);
         cartPage.removeClass('show');
-      }, error: function(err) {
-        console.log("Error: ", err);
+      },
+      error: function (err) {
+        console.log('Error: ', err);
       }
     });
 
-    function updateBikeDetails(userId) {
+    function updateBikeDetails (userId, returnDate) {
       for (const model in cart) {
         $.ajax({
           type: 'GET',
-          url: `http://localhost:5000/api/v1/bikes`,
+          url: 'http://localhost:5000/api/v1/bikes',
           success: function (response) {
             for (const bike of response) {
               if (bike.model === model) {
                 const data = {
                   user_id: userId,
                   available: false,
-                  rent_date: new Date().toISOString()
+                  rent_date: new Date().toISOString(),
+                  return_date: returnDate
                 };
                 $.ajax({
                   type: 'PUT',
@@ -109,15 +114,17 @@ $(document).ready(function(){
                   contentType: 'application/json',
                   success: function (response) {
                     console.log(response);
-                  }, error: function(err) {
-                    console.log("Error: ", err);
+                  },
+                  error: function (err) {
+                    console.log('Error: ', err);
                   }
                 });
                 break;
               }
             }
-          }, error: function(err) {
-            console.log("Error: ", err);
+          },
+          error: function (err) {
+            console.log('Error: ', err);
           }
         });
       }

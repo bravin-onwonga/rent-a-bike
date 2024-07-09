@@ -12,3 +12,4 @@ from api.v1.views.bikes import *
 from api.v1.views.lessors import *
 from api.v1.views.lessors_bikes import *
 from api.v1.views.bikes_reviews import *
+from api.v1.views.payment import *

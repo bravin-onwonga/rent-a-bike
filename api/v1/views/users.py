@@ -10,6 +10,7 @@ from models.bike import Bike
 from models.user import User
 import hashlib
 
+
 @app_views.route('/users', strict_slashes=False, methods=['GET'])
 def get_users():
     """Gets all users from DB"""
@@ -20,6 +21,7 @@ def get_users():
         users_lst.append(user)
     return jsonify(users_lst), 200
 
+
 @app_views.route('/users/<user_id>', strict_slashes=False, methods=['GET'])
 def get_user(user_id):
     """Gets one user using the user's id"""
@@ -29,6 +31,7 @@ def get_user(user_id):
         return jsonify(user), 200
     else:
         abort(404)
+
 
 @app_views.route('/users/<user_id>', strict_slashes=False, methods=['GET'])
 def get_user_bikes(user_id):
@@ -42,6 +45,7 @@ def get_user_bikes(user_id):
             bikes_lst.append(bike)
     return jsonify(bikes_lst), 200
 
+
 @app_views.route('/users/<user_id>', strict_slashes=False, methods=['DELETE'])
 def delete_user(user_id):
     """Deletes a User based on the ID passed"""
@@ -53,6 +57,7 @@ def delete_user(user_id):
         return jsonify({}), 200
     else:
         abort(404)
+
 
 @app_views.route('/users', strict_slashes=False, methods=['POST'])
 def create_user():
@@ -66,12 +71,14 @@ def create_user():
     if not user_info:
         abort(400, 'Missing information')
     for key in errors:
-        if not(user_info.get(key)):
+        if not (user_info.get(key)):
             if (key == "phone_number"):
                 abort(400, "Missing phone number")
             abort(400, "Missing {}".format(key))
 
-    hashed_password = hashlib.md5(user_info['password'].encode('utf-8')).hexdigest()
+    passwd = user_info['password']
+
+    hashed_password = hashlib.md5(passwd.encode('utf-8')).hexdigest()
 
     user = {
         "firstname": user_info['firstname'],
@@ -91,6 +98,7 @@ def create_user():
 
     return jsonify(new_user.to_dict()), 201
 
+
 @app_views.route('/users/<user_id>', strict_slashes=False, methods=['PUT'])
 def update_user(user_id):
     """Updates the user data using his id"""
@@ -99,7 +107,7 @@ def update_user(user_id):
     if not new_info.get('firstname') or not new_info.get('lastname'):
         abort(400, "Missing firstname or lastname")
 
-    if not(new_info):
+    if not new_info:
         abort(400, "Missing information")
 
     user = storage.get(User, user_id)
@@ -128,11 +136,16 @@ def login():
     if not user_info.get('email') or not user_info.get('password'):
         abort(400, 'Missing email or password')
 
-    hashed_password = hashlib.md5(user_info['password'].encode('utf-8')).hexdigest()
+    passwd = user_info['password']
+
+    hashed_password = hashlib.md5(passwd.encode('utf-8')).hexdigest()
 
     user = storage.all(User)
 
+    email = user.get('email')
+    user_pass = user.get('password')
+
     for user in user.values():
-        if user.get('email') == user_info['email'] and user.get('password') == hashed_password:
-            return redirect('http://localhost:5001/home'), 200
+        if (email == user_info['email'] and user_pass == hashed_password):
+            return jsonify(user), 200
     abort(404)

@@ -6,6 +6,7 @@ from api.v1.views import app_views
 from models import storage
 from models.lessor import Lessor
 
+
 @app_views.route('/lessors', strict_slashes=False, methods=['GET'])
 def get_lessors():
     """Get all Lessors"""
@@ -17,6 +18,7 @@ def get_lessors():
         lessors_lst.append(lessor)
 
     return jsonify(lessors_lst), 200
+
 
 @app_views.route('/lessors/<lessor_id>', strict_slashes=False, methods=['GET'])
 def get_Lessor(lessor_id):
@@ -38,23 +40,24 @@ def create_lessor():
     if not lessor_info:
         abort(400, 'Missing information')
     for key in errors:
-        if not(lessor_info.get(key)):
+        if not (lessor_info.get(key)):
             abort(400, "Missing {}".format(key))
     new_lessor = Lessor(**lessor_info)
     storage.new(new_lessor)
     storage.save()
     return jsonify(new_lessor.to_dict()), 201
 
+
 @app_views.route('/lessors/<lessor_id>', strict_slashes=False, methods=['PUT'])
 def update_lessor(lessor_id):
     """Updates the Lessor data using his id"""
     new_info = request.get_json()
 
+    if not new_info:
+        abort(400, "Not a JSON")
+
     if not new_info.get('firstname') or not new_info.get('lastname'):
         abort(400, "Missing firstname or lastname")
-
-    if not(new_info):
-        abort(400, "Missing information")
 
     Lessor = storage.get(Lessor, lessor_id)
 

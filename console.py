@@ -91,7 +91,7 @@ class HBNBCommand(cmd.Cmd):
 
         for obj in objs_dct.values():
             objs_lst.append(obj)
-        print (objs_lst)
+        print(objs_lst)
 
     @staticmethod
     def _split(line):

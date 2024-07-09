@@ -48,7 +48,7 @@ class DBStorage:
                 if value.get('_sa_instance_state'):
                     del value['_sa_instance_state']
                 if value.get('__class__'):
-                        del value['__class__']
+                    del value['__class__']
                 my_dict.update({key: value})
         else:
             for cls in cls_lst:
@@ -75,7 +75,6 @@ class DBStorage:
                 if obj.get('id') == obj_id:
                     return (obj)
         return None
-
 
     def new(self, obj=None):
         """Adds a new object to the database"""

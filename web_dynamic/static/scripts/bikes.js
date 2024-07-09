@@ -1,9 +1,9 @@
-$(document).ready(function(){
+$(document).ready(function () {
   const cart = JSON.parse(localStorage.getItem('cart')) || {};
   let totalPrice = parseFloat(localStorage.getItem('totalPrice')) || 0;
 
   if (cart.length === 0) {
-    totalPrice = 0
+    totalPrice = 0;
     localStorage.setItem('totalPrice', totalPrice);
     cartDisplay();
   }
@@ -29,21 +29,21 @@ $(document).ready(function(){
     cartDisplay();
   });
 
-  function cartDisplay() {
+  function cartDisplay () {
     const cartList = document.getElementById('cart-list');
 
     cartList.innerHTML = '';
     for (const [model, price] of Object.entries(cart)) {
       const cartItem = document.createElement('li');
       $(cartItem).addClass('list-group-item');
-      const cartItemImg = $('<img>', { src: `../static/images/${model}.png`, class: 'bike-cart-img'});
+      const cartItemImg = $('<img>', { src: `../static/images/${model}.png`, class: 'bike-cart-img' });
       $(cartItem).append(cartItemImg);
       $(cartItem).append(`${model} - ${price}`);
-      const closeImg = $('<img>', { src: '../static/images/remove.png', class: 'remove-img', 'data-model': model})
-      $(cartItem).append(closeImg)
+      const closeImg = $('<img>', { src: '../static/images/remove.png', class: 'remove-img', 'data-model': model });
+      $(cartItem).append(closeImg);
 
       cartList.appendChild(cartItem);
-    };
+    }
 
     $('#total').html(`${totalPrice}`);
     cartCount.html(Object.keys(cart).length);
@@ -57,18 +57,18 @@ $(document).ready(function(){
       console.log(price);
 
       if (!cart[bikeModel]) {
-          cart[bikeModel] = price;
-          totalPrice += price;
+        cart[bikeModel] = price;
+        totalPrice += price;
       }
       localStorage.setItem('cart', JSON.stringify(cart));
       localStorage.setItem('totalPrice', totalPrice.toFixed(2));
       cartDisplay();
-    })
+    });
   });
 
-  function removeItem(model) {
+  function removeItem (model) {
     if (model && cart[model]) {
-      totalPrice -= parseFloat(cart[model])
+      totalPrice -= parseFloat(cart[model]);
 
       delete cart[model];
 

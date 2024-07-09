@@ -10,7 +10,9 @@ from models import storage
 from models.bike import Bike
 from models.lessor import Lessor
 
-@app_views.route('/lessors/<lessor_id>/bikes', strict_slashes=False, methods=['GET'])
+
+@app_views.route('/lessors/<lessor_id>/bikes',
+                 strict_slashes=False, methods=['GET'])
 def all_lessor_bikes(lessor_id):
     """Gets all bikes lessed by a lessor"""
     lessor = storage.get(Lessor, lessor_id)
