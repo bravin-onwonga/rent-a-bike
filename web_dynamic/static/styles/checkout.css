@@ -132,7 +132,8 @@ flex-direction: column;;
 gap: 20px;
 }
 
-.name-section {
+.name-section,
+.return-phone-setion {
 display: flex;
 flex-direction: row;
 justify-content: center;

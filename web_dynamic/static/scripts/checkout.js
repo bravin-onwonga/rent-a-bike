@@ -85,7 +85,37 @@ $(document).ready(function () {
       contentType: 'application/json',
       success: function (response) {
         const userId = response.id;
-        updateBikeDetails(userId, returnDate);
+        const data = {
+          'amount': totalPrice,
+          'phone_number': formData.phone_number
+        }
+
+        $.ajax({
+          type: 'POST',
+          url: 'http://localhost:5000/api/v1/pay',
+          data: JSON.stringify(data),
+          contentType: 'application/json',
+          success: function (response) {
+            console.log(response);
+            $.ajax({
+              type: 'GET',
+              url: 'http://localhost:5000/api/v1/callback',
+              data: JSON.stringify(data),
+              contentType: 'application/json',
+              success: function (response) {
+                console.log(response);
+              },
+              error: function (err) {
+                console.log('Error: ', err);
+              }
+            })
+            updateBikeDetails(userId, returnDate);
+          },
+          error: function (err) {
+            console.log('Error: ', err);
+          }
+
+        });
         cartPage.removeClass('show');
       },
       error: function (err) {

@@ -9,31 +9,31 @@ import os
 import requests
 from requests.auth import HTTPBasicAuth
 
-callback_url = "https://192e-197-232-80-102.ngrok-free.app"
+callback_url = "https://2783-197-232-80-102.ngrok-free.app"
 
 
-@app_views.route('/pay', strict_slashes=False)
+@app_views.route('/pay', strict_slashes=False, methods=["POST", "OPTIONS"])
 def pay():
     """Initiates M-PESA Express request"""
-    payment_data = {
-        'phone': request.args.get('phone'),
-        'amount': request.args.get('amount')
-        }
+    if request.method == "OPTIONS":
+        return '', 200
+
+    payment_data = request.get_json()
 
     if not payment_data:
         abort(400, 'Payment information missing')
 
     amount = payment_data.get('amount')
-    phone_number = payment_data.get('phone')
+    phone_number = payment_data.get('phone_number')
+
     shortcode = os.getenv('SHORT_CODE')
 
-    endpoint = "https://sandbox.safaricom.co.ke/mpesa/stk\
-        push/v1/processrequest"
+    endpoint = ("https://sandbox.safaricom.co.ke/mp" +
+                "esa/stkpush/v1/processrequest")
     access_token = get_access_token()
     headers = {'Authorization': 'Bearer {}'.format(access_token)}
     timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
-    passkey = "bfb279f9aa9bdbcf158e97dd71a467\
-        cd2e0c893059b10f78e6b72ada1ed2c919"
+    passkey = os.getenv("PASSKEY")
     password = ("174379" + passkey + timestamp).encode('utf-8')
     password = base64.b64encode(password).decode('utf-8')
 
@@ -42,7 +42,7 @@ def pay():
         "Password": password,
         "Timestamp": timestamp,
         "TransactionType": "CustomerPayBillOnline",
-        "Amount": amount,
+        "Amount": 1,
         "PartyA": phone_number,
         "PartyB": shortcode,
         "PhoneNumber": phone_number,
@@ -55,23 +55,35 @@ def pay():
     return response.json()
 
 
-@app_views.route('/callback', methods=['POST'], strict_slashes=False)
+@app_views.route('/callback', strict_slashes=False, methods=['POST'])
 def callback():
     """Handles callback from M-Pesa"""
-    data = request.get_json()
-    if data.get('ResponseCode') == '0':
-        print("Hurray! Payment successful")
-        return jsonify(data)
+    callback_data = request.get_json()
+
+    if not callback_data:
+        abort(400, 'Callback data missing')
+
+    result_code = callback_data.get('Body',
+                                    {}).get('stkCallback',
+                                            {}).get('ResultCode')
+    result_desc = callback_data.get('Body',
+                                    {}).get('stkCallback',
+                                            {}).get('ResultDesc')
+
+    if result_code == 0:
+        print("Payment Successful:", result_desc)
     else:
-        return abort(400, "Request Incomplete")
+        print("Payment Failed:", result_desc)
+
+    return jsonify({"status": "Callback received"}), 200
 
 
 def get_access_token():
     """Gets access token for M-Pesa payment"""
     consumer_key = os.getenv("CONSUMER_KEY")
     consumer_secret = os.getenv("CONSUMER_SECRET")
-    endpoint = "https://sandbox.safaricom.co.ke/oauth/v1/gener\
-        ate?grant_type=client_credentials"
+    endpoint = ("https://sandbox.safaricom.co.ke/oauth/v1/gener" +
+                "ate?grant_type=client_credentials")
 
     try:
         res = requests.get(endpoint,
@@ -84,5 +96,5 @@ def get_access_token():
         if (status >= 400):
             print("Error code:", status)
     except Exception as e:
-        print("Error: ", e)
+        print("Error:Here ", e)
         return None

@@ -10,7 +10,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" type="text/css" href="../static/styles/base.css?{{ cache_id }}" />
   {% block extra_styles %}{% endblock %}
-  {% block extra_scripts %}{% endblock %}
+  {% block extra_scripts %}
+  <script src="{{ url_for('static', filename='scripts/base.js', cache_id=cache_id) }}"></script>{% endblock %}
   <title>Rent-a-bike</title>
 </head>
 
