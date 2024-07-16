@@ -1,15 +1,18 @@
 {% extends "base.html" %}
 
 {% block extra_styles %}
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/cart.css', cache_id=cache_id) }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/mybikes.css', cache_id=cache_id) }}">
 {% endblock %}
 
 {% block extra_scripts %}
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<script src="{{ url_for('static', filename='scripts/bikes.js', cache_id=cache_id) }}"></script>
+<script src="{{ url_for('static', filename='scripts/mybikes.js', cache_id=cache_id) }}"></script>
 <script src="{{ url_for('static', filename='scripts/base.js', cache_id=cache_id) }}"></script>
 {% endblock %}
 
 {% block content %}
+<div class="user_bikes">
+  <div class="user_rentals"></div>
+</div>
 
 {% endblock %}

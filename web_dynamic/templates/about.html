@@ -6,6 +6,10 @@
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/home.css', cache_id=cache_id) }}">
 {% endblock %}
 
+{% block extra_scripts %}
+<script src="{{ url_for('static', filename='scripts/base.js', cache_id=cache_id) }}"></script>
+{% endblock %}
+
 {% block content %}
 <div class="about-div">
   <div class="aboutus-div">

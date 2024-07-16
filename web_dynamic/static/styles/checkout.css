@@ -154,12 +154,14 @@ margin-right: 30px;
 align-self: right;
 width: 200px;
 height: 30px;
-border: 1px solid #2c2b2b55;}
+border: 1px solid #2c2b2b55;
+}
 
 .email-section input,
 .county-section input,
 .address-section input {
-width: 450px;}
+width: 450px;
+}
 
 .id-section {
 display: flex;
@@ -176,4 +178,8 @@ flex-direction: row;
   margin: 5px auto;
   font-size: 1rem;
   width: 60%;
+}
+
+#error-msg {
+color: #d30000;
 }

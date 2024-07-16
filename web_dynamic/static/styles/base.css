@@ -89,12 +89,22 @@ align-items: center;
 gap: 20px;
 }
 
-.login-btn {
+.login-btn,
+.logout-btn {
 background-color: rgb(255, 99, 99);
 color: azure;
 padding: 7px;
 border: none;
 }
+
+.hide {
+display: none;
+}
+
+.show {
+display: block;
+}
+
 
 .footer-div {
 display: flex;

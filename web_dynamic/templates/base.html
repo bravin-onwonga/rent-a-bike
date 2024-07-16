@@ -11,7 +11,9 @@
   <link rel="stylesheet" type="text/css" href="../static/styles/base.css?{{ cache_id }}" />
   {% block extra_styles %}{% endblock %}
   {% block extra_scripts %}
-  <script src="{{ url_for('static', filename='scripts/base.js', cache_id=cache_id) }}"></script>{% endblock %}
+  <script src="{{ url_for('static', filename='scripts/base.js', cache_id=cache_id) }}"></script>
+  <script src="{{ url_for('static', filename='scripts/home.js', cache_id=cache_id) }}"></script>
+  {% endblock %}
   <title>Rent-a-bike</title>
 </head>
 
@@ -27,15 +29,17 @@
         <li><a href="/lessors">Lessors</a></li>
         <li><a href="/about">About</a></li>
         <li><a href="/contact">Contact Us</a></li>
+        <li class="mybike hide"><a href="/mybikes">Rentals</a></li>
       </ul>
       <div class="nav-cart-items">
         <div class="cart-details">
           <img src="../static/images/cart.png" alt="cart-icon" class="cart-icon" />
           <div class="item-count">0</div>
         </div>
-        <a href="/login">
+        <a href="/login" class="login-link">
           <button class="login-btn">Login</button>
         </a>
+        <button class="logout-btn hide">Logout</button>
       </div>
     </nav>
   </header>

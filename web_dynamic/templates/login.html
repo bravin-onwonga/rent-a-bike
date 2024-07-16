@@ -1,23 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>rent-a-bike</title>
-  <link rel="stylesheet" type="text/css" href="../static/styles/login.css?{{ cache_id }}" />
-</head>
+{% block extra_styles %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/login.css', cache_id=cache_id) }}">
+{% endblock %}
 
-<body>
+{% block extra_scripts %}
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="{{ url_for('static', filename='scripts/login.js', cache_id=cache_id) }}"></script>
+{% endblock %}
+
+{% block content %}
+<div class="login-page">
   <div class="login-div">
-    <form class="login-form" action="http://localhost:5000/api/v1/users/login" method="post">
+    <form class="login-form">
+      <span id="error-msg"></span>
       <h1>Login</h1>
       <input type="email" name="email" placeholder="Email" />
       <input type="password" name="password" placeholder="Password" />
-      <button class="login-btn">Submit</button>
+      <button class="login-submit-btn">Submit</button>
+      <span>Don't have an account? <a href="{{url_for('signup')}}">Register Here</a></span>
     </form>
   </div>
+</div>
 
-</body>
-
-</html>
+{% endblock %}

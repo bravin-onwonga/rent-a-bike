@@ -1,45 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" type="text/css" href="../static/styles/signup.css?{{ cache_id }}" />
-  <title>rent-a-bike</title>
-</head>
+{% block extra_styles %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/signup.css', cache_id=cache_id) }}">
+{% endblock %}
 
-<body>
-  <div class="signup-div">
-    <form class="signup-form" method="post" action="http://localhost:5000/api/v1/users" , content="application/json">
-      <h1>Sign Up</h1>
-      <div><label>Firstname</label>
-        <input type="text" name="firstname" placeholder="First Name" required="True" />
-      </div>
-      <div><label>Middlename</label>
-        <input type="text" name="middlename" placeholder="Middle Name" />
-      </div>
-      <div><label>Lastname</label>
-        <input type="text" name="lastname" placeholder="Last Name" required="True" />
-      </div>
-      <div><label>Email</label>
-        <input type="email" name="email" placeholder="Email" required="True" />
-      </div>
-      <div><label>ID/Passport no</label>
-        <input type="text" name="id_number" required="True" />
-      </div>
-      <div><label>Password</label>
-        <input type="password" name="password" required="True" />
-      </div>
-      <div><label>County</label>
-        <input type="text" name="county" />
-      </div>
-      <div><label>Street Address</label>
-        <input type="text" name="street_address" placeholder="Garissa Rd" />
-      </div>
-      <button class="submit-btn">Submit</button>
-    </form>
-  </div>
+{% block extra_scripts %}
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="{{ url_for('static', filename='scripts/signup.js', cache_id=cache_id) }}"></script>
+{% endblock %}
 
-</body>
-
-</html>
+{% block content %}
+<div class="signup-div">
+  <form class="signup-form">
+    <span id="error-msg"></span>
+    <h1>Sign Up</h1>
+    <div><label>Firstname</label>
+      <input type="text" name="firstname" placeholder="First Name" required="True" />
+    </div>
+    <div><label>Middlename</label>
+      <input type="text" name="middlename" placeholder="Middle Name" />
+    </div>
+    <div><label>Lastname</label>
+      <input type="text" name="lastname" placeholder="Last Name" required="True" />
+    </div>
+    <div><label>Email</label>
+      <input type="email" name="email" placeholder="Email" required="True" />
+    </div>
+    <div><label>ID/Passport no</label>
+      <input type="text" name="id_number" required="True" />
+    </div>
+    <div><label>Password</label>
+      <input type="password" name="password" required="True" />
+    </div>
+    <div><label>County</label>
+      <input type="text" name="county" />
+    </div>
+    <div><label>Street Address</label>
+      <input type="text" name="street_address" placeholder="Garissa Rd" />
+    </div>
+    <button class="submit-btn">Submit</button>
+    <span>Already have an account? <a href="{{url_for('login')}}">Login Here</a></span>
+  </form>
+</div>
+{% endblock %}

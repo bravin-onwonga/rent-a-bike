@@ -178,6 +178,13 @@ def checkout():
     return render_template('checkout.html', cache_id=uuid.uuid4())
 
 
+@app.route('/mybikes', strict_slashes=False)
+def rentals():
+    """ My Bikes """
+
+    return render_template('mybikes.html', cache_id=uuid.uuid4())
+
+
 if __name__ == "__main__":
     """ Main Function """
     app.run(host='0.0.0.0', port=5001, debug=True)
