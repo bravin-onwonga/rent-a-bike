@@ -3,13 +3,16 @@
 
 import base64
 from datetime import datetime
+import uuid
 from flask import abort, jsonify, request
 from api.v1.views import app_views
 import os
 import requests
 from requests.auth import HTTPBasicAuth
 
-callback_url = "https://2783-197-232-80-102.ngrok-free.app"
+callback_url = "https://2390-197-232-28-159.ngrok-free.app"
+
+payment_callback = {}
 
 
 @app_views.route('/pay', strict_slashes=False, methods=["POST", "OPTIONS"])
@@ -28,8 +31,8 @@ def pay():
 
     shortcode = os.getenv('SHORT_CODE')
 
-    endpoint = ("https://sandbox.safaricom.co.ke/mp" +
-                "esa/stkpush/v1/processrequest")
+    endpoint = ("https://sandbox.safaricom.co.ke/mpesa/" +
+                "stkpush/v1/processrequest")
     access_token = get_access_token()
     headers = {'Authorization': 'Bearer {}'.format(access_token)}
     timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
@@ -52,7 +55,8 @@ def pay():
     }
 
     response = requests.post(endpoint, headers=headers, json=payload)
-    return response.json()
+    print(response)
+    return response.json(), 200
 
 
 @app_views.route('/callback', strict_slashes=False, methods=['POST'])
@@ -61,29 +65,29 @@ def callback():
     callback_data = request.get_json()
 
     if not callback_data:
-        abort(400, 'Callback data missing')
+        abort(404, "Not JSON")
 
-    result_code = callback_data.get('Body',
-                                    {}).get('stkCallback',
-                                            {}).get('ResultCode')
-    result_desc = callback_data.get('Body',
-                                    {}).get('stkCallback',
-                                            {}).get('ResultDesc')
+    print(callback_data)
+    payment_callback = callback_data
 
-    if result_code == 0:
-        print("Payment Successful:", result_desc)
-    else:
-        print("Payment Failed:", result_desc)
+    print(payment_callback)
 
-    return jsonify({"status": "Callback received"}), 200
+    return jsonify(callback_data), 200
+
+
+@app_views.route('/check_payment', strict_slashes=False, methods=['GET'])
+def check_payment():
+    """Checks if callback data is received or not"""
+    print(payment_callback)
+    return jsonify(payment_callback), 200
 
 
 def get_access_token():
     """Gets access token for M-Pesa payment"""
     consumer_key = os.getenv("CONSUMER_KEY")
     consumer_secret = os.getenv("CONSUMER_SECRET")
-    endpoint = ("https://sandbox.safaricom.co.ke/oauth/v1/gener" +
-                "ate?grant_type=client_credentials")
+    endpoint = ("https://sandbox.safaricom.co.ke/oauth/v1/" +
+                "generate?grant_type=client_credentials")
 
     try:
         res = requests.get(endpoint,

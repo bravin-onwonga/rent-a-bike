@@ -22,6 +22,7 @@ class User(BaseModel, Base):
     id_document = Column(String(60), nullable=True)
     profile_pic = Column(String(60), nullable=True)
     password = Column(String(128), nullable=False)
+    is_active = Column(Boolean, nullable=False, default=True)
     street_address = Column(String(128), nullable=True)
     county = Column(String(128), nullable=True)
     verified = Column(Boolean, nullable=False, default=False)

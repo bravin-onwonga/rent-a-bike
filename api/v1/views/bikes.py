@@ -80,6 +80,8 @@ def update_bike(bike_id):
     """Updates the Bike data using his id"""
     new_info = request.get_json()
 
+    print(new_info)
+
     """ if not new_info.get('firstname') or not new_info.get('lastname'):
         abort(400, "Missing firstname or lastname") """
 

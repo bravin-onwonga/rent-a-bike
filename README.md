@@ -16,8 +16,13 @@ Cycling is not an easy option in most cities for those looking to do it in the s
 - Activate your python environment
 - Run the following commant to install all ```dependencies```
 > pip install -r requirements.txt
+- Then make sure to install ```mysqlclient```
+> pip install mysqlclient
 - Include your information for the M-Pesa api in the ```.env``` file. Sign up for an account [here](https://developer.safaricom.co.ke/)
 - Run ```python3 -m api.v1.app``` to run the app server locally and ```python3 -m web_dynamic.index``` to run the web server.
+
+### Depencies
+You can get a full list of all dependencies used in the requirements.txt
 
 ### More Screenshots
 ![alt text](screenshot1.png)

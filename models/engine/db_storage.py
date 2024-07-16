@@ -76,6 +76,14 @@ class DBStorage:
                     return (obj)
         return None
 
+    def get_user_by_email(self, email):
+        """Returns a user object using the email provided"""
+        if email:
+            user = self.__session.query(User)\
+                .filter(User.email == email).first()
+            return user
+        return None
+
     def new(self, obj=None):
         """Adds a new object to the database"""
         if obj:

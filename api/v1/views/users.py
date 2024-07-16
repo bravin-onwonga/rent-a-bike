@@ -33,7 +33,9 @@ def get_user(user_id):
         abort(404)
 
 
-@app_views.route('/users/<user_id>', strict_slashes=False, methods=['GET'])
+@app_views.route('/users/<user_id>/bikes',
+                 strict_slashes=False,
+                 methods=['GET'])
 def get_user_bikes(user_id):
     """Gets one bike instance by its id"""
     bikes_lst = []
@@ -41,12 +43,14 @@ def get_user_bikes(user_id):
     bikes = storage.all(Bike)
 
     for bike in bikes.values():
-        if bike.user_id == user_id:
+        if bike.get(user_id) == user_id:
             bikes_lst.append(bike)
     return jsonify(bikes_lst), 200
 
 
-@app_views.route('/users/<user_id>', strict_slashes=False, methods=['DELETE'])
+@app_views.route('/users/<user_id>',
+                 strict_slashes=False,
+                 methods=['DELETE'])
 def delete_user(user_id):
     """Deletes a User based on the ID passed"""
     user = storage.get(User, user_id)
@@ -123,29 +127,3 @@ def update_user(user_id):
         return jsonify(user), 200
     else:
         abort(404)
-
-
-@app_views.route('/users/login', strict_slashes=False, methods=['POST'])
-def login():
-    """Allows the user to login """
-    user_info = request.form
-
-    if not user_info:
-        abort(400, 'Missing information')
-
-    if not user_info.get('email') or not user_info.get('password'):
-        abort(400, 'Missing email or password')
-
-    passwd = user_info['password']
-
-    hashed_password = hashlib.md5(passwd.encode('utf-8')).hexdigest()
-
-    user = storage.all(User)
-
-    email = user.get('email')
-    user_pass = user.get('password')
-
-    for user in user.values():
-        if (email == user_info['email'] and user_pass == hashed_password):
-            return jsonify(user), 200
-    abort(404)
