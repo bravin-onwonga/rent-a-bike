@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   const HOST = 'localhost:5000';
 
-  async function getCurrentUser() {
+  async function getCurrentUser () {
     try {
       await $.ajax({
         type: 'GET',
@@ -11,13 +11,13 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         success: function (response) {
           console.log(response);
-          userId = response.id
-          bikes = get_user_bikes(userId)
-          console.log(bikes)
+          userId = response.id;
+          bikes = get_user_bikes(userId);
+          console.log(bikes);
         }
       });
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
   }
   getCurrentUser();
@@ -38,11 +38,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
   });
 
-  async function get_user_bikes(userId) {
+  async function get_user_bikes (userId) {
     try {
       await $.ajax({
         type: 'GET',
@@ -62,13 +62,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 <a href="#" class="btn btn-primary">Return</a>
               </div>
             </div>
-            `
+            `;
             $('.user_rentals').append(bikeCard);
           }
         }
       });
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
   }
-})
+});

@@ -21,7 +21,8 @@ $(document).ready(function () {
         } else {
           $('#error-msg').html('Signup failed');
         }
-      }, error: function (err) {
+      },
+      error: function (err) {
         console.log('Error: ', err);
       }
     });

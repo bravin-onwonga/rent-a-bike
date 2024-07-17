@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """Handles bike class API requests"""
 
+from datetime import datetime
 from flask import abort, jsonify, request
 from api.v1.views import app_views
 from models import storage
@@ -80,23 +81,22 @@ def update_bike(bike_id):
     """Updates the Bike data using his id"""
     new_info = request.get_json()
 
-    print(new_info)
-
-    """ if not new_info.get('firstname') or not new_info.get('lastname'):
-        abort(400, "Missing firstname or lastname") """
-
     if not (new_info):
         abort(400, "Missing information")
 
-    bike = storage.get(Bike, bike_id)
+    new_info['rent_date'] = datetime.utcnow()
+
+    bike = storage.get_instance(Bike, bike_id)
+
+    print(bike)
 
     if bike:
         lst = ['id', 'updated_at', 'created_at']
 
         for key, value in new_info.items():
             if key not in lst:
-                bike[key] = value
+                setattr(bike, key, value)
         storage.save()
-        return jsonify(bike), 200
+        return jsonify(bike.to_dict()), 200
     else:
         abort(404)

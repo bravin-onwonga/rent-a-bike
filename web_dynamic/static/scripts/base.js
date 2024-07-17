@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   const HOST = 'localhost:5000';
 
-  async function getCurrentUser() {
+  async function getCurrentUser () {
     try {
       await $.ajax({
         type: 'GET',
@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
   }
   getCurrentUser();
@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
   });
 });

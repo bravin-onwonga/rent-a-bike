@@ -76,6 +76,15 @@ class DBStorage:
                     return (obj)
         return None
 
+    def get_instance(self, cls, obj_id):
+        """Returns a user object using id"""
+        if (cls and obj_id):
+            obj = self.__session.query(cls)\
+                .filter(cls.id == obj_id).first()
+            if obj:
+                return obj
+        return None
+
     def get_user_by_email(self, email):
         """Returns a user object using the email provided"""
         if email:

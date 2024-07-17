@@ -3,14 +3,13 @@
 
 import base64
 from datetime import datetime
-import uuid
 from flask import abort, jsonify, request
 from api.v1.views import app_views
 import os
 import requests
 from requests.auth import HTTPBasicAuth
 
-callback_url = "https://2390-197-232-28-159.ngrok-free.app"
+callback_url = "https://491e-197-232-28-159.ngrok-free.app"
 
 payment_callback = {}
 
@@ -22,6 +21,9 @@ def pay():
         return '', 200
 
     payment_data = request.get_json()
+
+    global payment_callback
+    payment_callback = {}
 
     if not payment_data:
         abort(400, 'Payment information missing')
@@ -62,13 +64,20 @@ def pay():
 @app_views.route('/callback', strict_slashes=False, methods=['POST'])
 def callback():
     """Handles callback from M-Pesa"""
+
+    global payment_callback
+
     callback_data = request.get_json()
 
     if not callback_data:
         abort(404, "Not JSON")
 
+    print("callback_data received")
+    print()
     print(callback_data)
     payment_callback = callback_data
+
+    print()
 
     print(payment_callback)
 
@@ -78,6 +87,8 @@ def callback():
 @app_views.route('/check_payment', strict_slashes=False, methods=['GET'])
 def check_payment():
     """Checks if callback data is received or not"""
+    global payment_callback
+    print("Payment callback Updated")
     print(payment_callback)
     return jsonify(payment_callback), 200
 

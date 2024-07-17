@@ -108,13 +108,10 @@ def update_user(user_id):
     """Updates the user data using his id"""
     new_info = request.get_json()
 
-    if not new_info.get('firstname') or not new_info.get('lastname'):
-        abort(400, "Missing firstname or lastname")
-
     if not new_info:
         abort(400, "Missing information")
 
-    user = storage.get(User, user_id)
+    user = storage.get_instance(User, user_id)
 
     if user:
         lst = ['id', 'updated_at', 'created_at']
@@ -124,6 +121,6 @@ def update_user(user_id):
         for key, value in new_info.items():
             setattr(user, key, value)
         storage.save()
-        return jsonify(user), 200
+        return jsonify(user.to_dict()), 200
     else:
         abort(404)

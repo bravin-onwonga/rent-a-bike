@@ -20,12 +20,13 @@ $(document).ready(function () {
       success: function (response) {
         console.log('Login success');
         console.log(response);
-          window.location.href = '/home';
-      }, error: function (err) {
+        window.location.href = '/home';
+      },
+      error: function (err) {
         console.log('Login failed');
         console.log('Error: ', err);
         $('#error-msg').html('Wrong Email or Password');
       }
     });
   });
-})
+});

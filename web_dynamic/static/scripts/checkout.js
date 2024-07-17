@@ -95,9 +95,9 @@ $(document).ready(function () {
     phonenumber = '2547' + phonenumber.slice(-8);
 
     const data = {
-      'amount': totalPrice,
-      'phone_number': phonenumber
-    }
+      amount: totalPrice,
+      phone_number: phonenumber
+    };
 
     if (!$.isEmptyObject(cart)) {
       try {
@@ -115,7 +115,7 @@ $(document).ready(function () {
         }
 
         if (paymentStatus == 'TIMEOUT' || paymentStatus == 'SUCCESS') {
-          console.log('Payment made')
+          console.log('Payment made');
 
           await checkLogin();
 
@@ -137,9 +137,7 @@ $(document).ready(function () {
                 console.log('Error: ', err);
               }
             });
-          }
-
-          else if (user_id !== null) {
+          } else if (user_id !== null) {
             console.log('User logged in');
             const myLst = ['firstname', 'lastname', 'email', 'phone_number', 'id_number', 'password'];
 
@@ -149,8 +147,8 @@ $(document).ready(function () {
               }
             }
 
-            if (formData['county'] === '') {
-              formData['county'] = 'Nairobi';
+            if (formData.county === '') {
+              formData.county = 'Nairobi';
             }
 
             $.ajax({
@@ -195,47 +193,47 @@ $(document).ready(function () {
 
     // Check payment details here
 
-    async function checkPayment() {
+    async function checkPayment () {
       const interval = 3000;
       const maxAttempts = 8;
       let attempts = 0;
 
       while (true) {
-        console.log("Still waiting..........")
+        console.log('Still waiting..........');
         try {
           const callback_data = await $.ajax({
             type: 'GET',
             url: `http://${HOST}/api/v1/check_payment`,
-            contentType: 'application/json',
+            contentType: 'application/json'
           });
           if (!$.isEmptyObject(callback_data)) {
-            result_code = callback_data.Body.stkCallback.ResultCode
+            result_code = callback_data.Body.stkCallback.ResultCode;
             if (Number(result_code) === 0) {
-              console.log("Payment successful")
-              return('SUCCESS');
+              console.log('Payment successful');
+              return ('SUCCESS');
             } else if (Number(result_code) === 1032) {
-              console.log("Payment cancelled")
-              return('CANCELLED');
+              console.log('Payment cancelled');
+              return ('CANCELLED');
             } else {
-              console.log("Payment request timeout")
-              return('TIMEOUT');
+              console.log('Payment request timeout');
+              return ('TIMEOUT');
             }
           }
           attempts += 1;
 
-        if (attempts > maxAttempts) {
-          return('TIMEOUT');
-        }
-        await new Promise(resolve => setTimeout(resolve, interval));
+          if (attempts > maxAttempts) {
+            return ('TIMEOUT');
+          }
+          await new Promise(resolve => setTimeout(resolve, interval));
         } catch (err) {
-          console.log("Error: ", err);
+          console.log('Error: ', err);
           $('#error-msg').html('Something went wrong. Please try again');
           break;
         }
       }
     }
 
-    //Update bike details here after payment
+    // Update bike details here after payment
 
     async function updateBikeDetails (userId, returnDate) {
       for (const model in cart) {
@@ -248,7 +246,6 @@ $(document).ready(function () {
                 const data = {
                   user_id: userId,
                   available: false,
-                  rent_date: new Date().toISOString(),
                   return_date: returnDate
                 };
                 $.ajax({
@@ -256,6 +253,9 @@ $(document).ready(function () {
                   url: `http://${HOST}/api/v1/bikes/${bike.id}`,
                   data: JSON.stringify(data),
                   contentType: 'application/json',
+                  xhrFields: {
+                    withCredentials: true
+                  },
                   success: function (response) {
                     console.log(response);
                   },
@@ -276,7 +276,7 @@ $(document).ready(function () {
 
   // Checks whether the user is logged in or not
 
-  async function checkLogin() {
+  async function checkLogin () {
     try {
       await $.ajax({
         type: 'GET',
@@ -285,7 +285,7 @@ $(document).ready(function () {
           withCredentials: true
         },
         success: function (response, status, xhr) {
-          if (Number(xhr.status) === 200){
+          if (Number(xhr.status) === 200) {
             console.log(response);
             $('.name-section input').removeAttr('required').parent().hide();
             $('.email-section input').removeAttr('required').parent().hide();
@@ -298,7 +298,6 @@ $(document).ready(function () {
             return (user_id);
           }
           logged_in = false;
-          return;
         }
       });
     } catch (err) {
@@ -306,5 +305,5 @@ $(document).ready(function () {
       return (false);
     }
   }
-  checkLogin()
+  checkLogin();
 });

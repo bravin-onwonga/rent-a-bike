@@ -1,7 +1,7 @@
 $(document).ready(function () {
   const HOST = 'localhost:5000';
 
-  async function getCurrentUser() {
+  async function getCurrentUser () {
     try {
       await $.ajax({
         type: 'GET',
@@ -14,7 +14,7 @@ $(document).ready(function () {
         }
       });
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
   }
   getCurrentUser();
