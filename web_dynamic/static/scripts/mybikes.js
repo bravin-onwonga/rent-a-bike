@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
           console.log(response);
           userId = response.id
           bikes = get_user_bikes(userId)
+          console.log(bikes)
         }
       });
     } catch (err) {

@@ -2,10 +2,13 @@
 
 {% block extra_styles %}
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/lessors.css', cache_id=cache_id) }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/bikes.css', cache_id=cache_id) }}">
 {% endblock %}
 
 {% block extra_scripts %}
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="{{ url_for('static', filename='scripts/base.js', cache_id=cache_id) }}"></script>
+<script src="{{ url_for('static', filename='scripts/bikes.js', cache_id=cache_id) }}"></script>
 {% endblock %}
 
 {% block content %}
@@ -23,4 +26,16 @@
     </div>
     {% endfor %}
   </div>
-  {% endblock %}
+</div>
+<div class="cart-page">
+  <img src="{{ url_for('static', filename='images/close.png') }}" alt="close_img" id="close-cart-img"
+    class="close-img" />
+  <div id="cart-list"></div>
+  <div id="total-div">
+    <h1>Total: Ksh <span id="total"></span></h1>
+    <a href="/checkout">
+      <button id="checkout-btn" class="checkout-btn">Checkout</button>
+    </a>
+  </div>
+</div>
+{% endblock %}

@@ -11,6 +11,7 @@
   <link rel="stylesheet" type="text/css" href="../static/styles/base.css?{{ cache_id }}" />
   {% block extra_styles %}{% endblock %}
   {% block extra_scripts %}
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   <script src="{{ url_for('static', filename='scripts/base.js', cache_id=cache_id) }}"></script>
   <script src="{{ url_for('static', filename='scripts/home.js', cache_id=cache_id) }}"></script>
   {% endblock %}

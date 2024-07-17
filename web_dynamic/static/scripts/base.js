@@ -31,14 +31,13 @@ document.addEventListener('DOMContentLoaded', () => {
           withCredentials: true
         },
         success: function (response, status, xhr) {
-          if (xhr.status === 204) {
+          if (xhr.status === 200) {
             $('.login-link').addClass('show').removeClass('hide');
             $('.logout-btn').addClass('hide').removeClass('show');
             $('.mybike').addClass('hide').removeClass('show');
             window.location.href = '/home';
           } else {
             console.log('Logout failed');
-
           }
         }
       });

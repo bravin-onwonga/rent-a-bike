@@ -2,6 +2,7 @@
 
 {% block extra_styles %}
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/display.css', cache_id=cache_id) }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/bikes.css', cache_id=cache_id) }}">
 {% endblock %}
 
 {% block extra_scripts %}
@@ -22,10 +23,24 @@
       <p><b>Category:</b> {{ bike.category }}</p>
       <p><b>Speed:</b> {{ bike.speed }}</p>
       <p><b>Lessors:</b> {{ lessor.name }}</p>
-      <button class="rent-btn">Rent</button>
+      <button class="rent-btn" class="rent-btn" data-model="{{bike.model}}" data-price="{{bike.price}}"
+        data-available="{{bike.available}}">Rent</button>
     </div>
   </div>
   <div class="reviews">
     <h2>Reviews</h2>
     <p>{{ bike.review }}</p>
-    {% endblock %}
+  </div>
+</div>
+<div class="cart-page">
+  <img src="{{ url_for('static', filename='images/close.png') }}" alt="close_img" id="close-cart-img"
+    class="close-img" />
+  <div id="cart-list"></div>
+  <div id="total-div">
+    <h1>Total: Ksh <span id="total"></span></h1>
+    <a href="/checkout">
+      <button id="checkout-btn" class="checkout-btn">Checkout</button>
+    </a>
+  </div>
+</div>
+{% endblock %}

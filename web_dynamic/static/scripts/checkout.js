@@ -1,5 +1,8 @@
 $(document).ready(function () {
   const HOST = 'localhost:5000';
+  let user_id = null;
+
+  // Cart logic starts here
 
   const cart = JSON.parse(localStorage.getItem('cart')) || {};
   let totalPrice = parseFloat(localStorage.getItem('totalPrice')) || 0;
@@ -69,6 +72,8 @@ $(document).ready(function () {
   }
   cartDisplay();
 
+  // Payment logic starts here
+
   $('.checkout-form').on('submit', async function (e) {
     e.preventDefault();
     const form = $(this);
@@ -80,12 +85,21 @@ $(document).ready(function () {
     const returnDate = formData.return_date;
     delete formData.return_date;
 
-    const data = {
-      'amount': totalPrice,
-      'phone_number': formData.phone_number
+    phonenumber = formData.phone_number;
+
+    if (phonenumber.length < 9) {
+      $('#error-msg').html('Invalid phone number');
+      return;
     }
 
-    if (cart.length !== 0) {
+    phonenumber = '2547' + phonenumber.slice(-8);
+
+    const data = {
+      'amount': totalPrice,
+      'phone_number': phonenumber
+    }
+
+    if (!$.isEmptyObject(cart)) {
       try {
         const payResponse = await $.ajax({
           type: 'POST',
@@ -100,23 +114,60 @@ $(document).ready(function () {
           paymentStatus = await checkPayment();
         }
 
-        if (paymentStatus == 'SUCCESS') {
+        if (paymentStatus == 'TIMEOUT' || paymentStatus == 'SUCCESS') {
           console.log('Payment made')
 
-          $.ajax({
-            type: 'POST',
-            url: `http://${HOST}/api/v1/users`,
-            data: JSON.stringify(formData),
-            contentType: 'application/json',
-            success: function (response) {
-              const userId = response.id;
-              cartPage.removeClass('show');
-              updateBikeDetails(userId, returnDate);
-            },
-            error: function (err) {
-              console.log('Error: ', err);
+          await checkLogin();
+
+          console.log(user_id);
+
+          if (user_id === null) {
+            console.log('User not logged in');
+            $.ajax({
+              type: 'POST',
+              url: `http://${HOST}/api/v1/users`,
+              data: JSON.stringify(formData),
+              contentType: 'application/json',
+              success: function (response) {
+                console.log(response.id);
+                cartPage.removeClass('show');
+                updateBikeDetails(response.id, returnDate);
+              },
+              error: function (err) {
+                console.log('Error: ', err);
+              }
+            });
+          }
+
+          else if (user_id !== null) {
+            console.log('User logged in');
+            const myLst = ['firstname', 'lastname', 'email', 'phone_number', 'id_number', 'password'];
+
+            for (const key in formData) {
+              if (myLst.includes(key)) {
+                delete formData[key];
+              }
             }
-          });
+
+            if (formData['county'] === '') {
+              formData['county'] = 'Nairobi';
+            }
+
+            $.ajax({
+              type: 'PUT',
+              url: `http://${HOST}/api/v1/users/${user_id}`,
+              data: JSON.stringify(formData),
+              contentType: 'application/json',
+              success: function (response) {
+                const userId = response.id;
+                cartPage.removeClass('show');
+                updateBikeDetails(userId, returnDate);
+              },
+              error: function (err) {
+                console.log('Error: ', err);
+              }
+            });
+          }
         } else if (paymentStatus == 'CANCELLED') {
           $('#error-msg').html('Payment cancelled');
         } else {
@@ -142,9 +193,11 @@ $(document).ready(function () {
       });
     }
 
+    // Check payment details here
+
     async function checkPayment() {
       const interval = 3000;
-      const maxAttempts = 20;
+      const maxAttempts = 8;
       let attempts = 0;
 
       while (true) {
@@ -156,14 +209,22 @@ $(document).ready(function () {
             contentType: 'application/json',
           });
           if (!$.isEmptyObject(callback_data)) {
-            console.log("Data received")
-            console.log(callback_data);
-            break;
+            result_code = callback_data.Body.stkCallback.ResultCode
+            if (Number(result_code) === 0) {
+              console.log("Payment successful")
+              return('SUCCESS');
+            } else if (Number(result_code) === 1032) {
+              console.log("Payment cancelled")
+              return('CANCELLED');
+            } else {
+              console.log("Payment request timeout")
+              return('TIMEOUT');
+            }
           }
           attempts += 1;
 
         if (attempts > maxAttempts) {
-          return({'ResponseCode': 'TIMEOUT'});
+          return('TIMEOUT');
         }
         await new Promise(resolve => setTimeout(resolve, interval));
         } catch (err) {
@@ -173,6 +234,8 @@ $(document).ready(function () {
         }
       }
     }
+
+    //Update bike details here after payment
 
     async function updateBikeDetails (userId, returnDate) {
       for (const model in cart) {
@@ -210,4 +273,38 @@ $(document).ready(function () {
       }
     }
   });
+
+  // Checks whether the user is logged in or not
+
+  async function checkLogin() {
+    try {
+      await $.ajax({
+        type: 'GET',
+        url: `http://${HOST}/api/v1/auth/current_user`,
+        xhrFields: {
+          withCredentials: true
+        },
+        success: function (response, status, xhr) {
+          if (Number(xhr.status) === 200){
+            console.log(response);
+            $('.name-section input').removeAttr('required').parent().hide();
+            $('.email-section input').removeAttr('required').parent().hide();
+            $('.id-section input').removeAttr('required').parent().hide();
+
+            $('.name-section').hide();
+            $('.email-section').hide();
+            $('.id-section').hide();
+            user_id = response.id;
+            return (user_id);
+          }
+          logged_in = false;
+          return;
+        }
+      });
+    } catch (err) {
+      console.log(err);
+      return (false);
+    }
+  }
+  checkLogin()
 });

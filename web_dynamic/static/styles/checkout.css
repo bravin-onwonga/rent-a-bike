@@ -183,3 +183,7 @@ flex-direction: row;
 #error-msg {
 color: #d30000;
 }
+
+.hide {
+  display: none;
+}
